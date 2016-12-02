@@ -1,6 +1,12 @@
+@if(empty(session('access_token')) || empty(session('refresh_token')))
+<script language='javascript'>
+    location='/baidu';
+</script>
+@endif
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -57,6 +63,32 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('access_token') ? ' has-error' : '' }}">
+
+                            <div class="col-md-6">
+                                <input id="access_token" type="hidden" class="form-control" name="access_token" value="{{ session('access_token') }}">
+
+                                @if ($errors->has('access_token'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('access_token') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group{{ $errors->has('refresh_token') ? ' has-error' : '' }}">
+
+                            <div class="col-md-6">
+                                <input id="refresh_token" type="hidden" class="form-control" name="refresh_token" value="{{ session('refresh_token') }}">
+
+                                @if ($errors->has('refresh_token'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('refresh_token') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 

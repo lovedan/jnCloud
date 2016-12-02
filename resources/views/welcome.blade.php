@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    江南云 V 0.0.9
                 </div>
 
                 <div class="links">
