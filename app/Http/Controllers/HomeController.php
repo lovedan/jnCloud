@@ -61,7 +61,7 @@ class HomeController extends Controller
         $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path,$limit,$orderby);
         $access_token=Auth::user()->access_token;
         
-        return view('hometest')->with([
+        return view('home')->with([
             "files_on_pcs"=>$files_on_pcs,
             "access_token"=>$access_token,
             "remote_dir"=>$remote_dir,
