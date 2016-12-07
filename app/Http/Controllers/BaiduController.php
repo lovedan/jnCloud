@@ -18,7 +18,7 @@ class BaiduController extends Controller
             {
                 
             	$result = $this->get_by_curl('https://www.syncy.cn/oauth','method=get_access_token&sign=wp2pcs-sy&code='.$_GET['code']);
-            
+
             	$result_array = json_decode($result,true);
 
             	if(!isset($result_array['access_token']) || !$result_array['refresh_token']){

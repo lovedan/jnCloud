@@ -19,7 +19,7 @@ Route::get('/baidu', function() {
 
 //    $backuri = "http://www.jiangnan.pw/auth?";
     $backuri = config('app.url')."/auth?";
-    return redirect('http://openapi.baidu.com/oauth/2.0/authorize?client_id=dqSQouI90u33xGGUZzMWASZY&response_type=code&redirect_uri=http%3A%2F%2Fwww.syncy.cn%2Foauth%3Fmethod%3Dgranted&scope=basic,netdisk&confirm_login=1&state=auth_code%23'.urlencode($backuri));
+    return redirect('http://openapi.baidu.com/oauth/2.0/authorize?client_id=dqSQouI90u33xGGUZzMWASZY&response_type=code&redirect_uri=http%3A%2F%2Fwww.syncy.cn%2Foauth%3Fmethod%3Dgranted&scope=basic%20netdisk&confirm_login=1&state=auth_code%23'.urlencode($backuri));
 });
 
 Route::get('/auth', 'BaiduController@index');
