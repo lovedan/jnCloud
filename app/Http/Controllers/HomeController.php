@@ -61,7 +61,7 @@ class HomeController extends Controller
         $remote_dir = config('app.bapppath');
 
         if(isset($_GET['dir']) && !empty($_GET['dir'])){
-        	$dir_pcs_path = $_GET['dir'];
+            $dir_pcs_path = str_replace('\\','',$_GET['dir']);
         }else{
         	$dir_pcs_path = config('app.bapppath');
         }
