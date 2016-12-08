@@ -1,7 +1,7 @@
 @extends('layouts.disk')
 
 @section('menubar')
-<?php 
+<?php
     if(isset($_GET['dir']) && !empty($_GET['dir'])){
         $current_path = str_replace($remote_dir,'',$dir_pcs_path);
         $current_dir_string = array();
@@ -14,7 +14,7 @@
             echo $current_dir_link;
         }
     }
-?>                
+?>
 @endsection
 
 @section('databody')
@@ -37,7 +37,8 @@ if(!empty($files_on_pcs))
 		$class = '';
 		// 判断是否为图片
 		if(in_array($file_type,array('jpg','jpeg','png','gif','bmp'))){
-			$thumbnail = App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl);
+//			$thumbnail = App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl);
+			$thumbnail = 'http://www.jiangnan.pw/images'.$file->path;
 			$file_type = 'image';
 		}
 		// 判断是否为视频
@@ -66,7 +67,7 @@ if(!empty($files_on_pcs))
 		echo '<td width="30%" style="line-height:4">';
 		if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
-		if($thumbnail)echo '<img src="'.$thumbnail.'?thumbnail=true" width="100" height="100" alt="'.$file_name.'"/>';
+		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
 			elseif($file_type == 'dir')echo '<img src="asset/folder.png" alt="'.$file_name.'"/>';
 			elseif($file_type == 'video')echo '<img src="asset/video.png" alt="'.$file_name.'"/>';
 			elseif($file_type == 'audio')echo '<img src="asset/audio.png" alt="'.$file_name.'"/>';
@@ -87,5 +88,5 @@ if(!empty($files_on_pcs))
 		echo '</tr>';
 	}
 }
-?>                
+?>
 @endsection
