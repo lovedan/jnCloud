@@ -18,7 +18,9 @@
 @endsection
 
 @section('databody')
-<?php 
+<?php
+$userNewId = config('app.useridstart') + Auth::user()->id;
+$userPcsUrl = config('app.fileurl').'/'.$userNewId.'/';
 if(!empty($files_on_pcs))
 {
 	foreach($files_on_pcs as $file){
@@ -35,7 +37,7 @@ if(!empty($files_on_pcs))
 		$class = '';
 		// 判断是否为图片
 		if(in_array($file_type,array('jpg','jpeg','png','gif','bmp'))){
-			$thumbnail = App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path);
+			$thumbnail = App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl);
 			$file_type = 'image';
 		}
 		// 判断是否为视频
@@ -73,8 +75,8 @@ if(!empty($files_on_pcs))
 		echo $file_name;
         echo '</td>';
         echo '<td width="50%" >';
-        if($file_type != 'dir') echo '直链地址：<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path).'"><BR>';
-        if($file_type != 'dir') echo 'MarkDown地址：<input type="text" class="form-control " value="!['.$file_name.']('.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path).')">';
+        if($file_type != 'dir') echo '直链地址：<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'"><BR>';
+        if($file_type != 'dir') echo 'MarkDown地址：<input type="text" class="form-control " value="!['.$file_name.']('.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).')">';
         echo '</td>';
         echo '<td width="10%" style="line-height:4">';
         if($file_type != 'dir') echo number_format($file->size/1024, 2, '.', '')."KB";

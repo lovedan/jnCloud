@@ -31,11 +31,23 @@ class HomeController extends Controller
         global $refresh_token;
 
         //设置项目
-        define('FILES_DIR',dirname(__FILE__).'/_bpcs_files_');	//设置目录，尾部不需要/
-        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
-        
+        define('FILES_DIR',dirname(dirname(dirname(dirname(__FILE__)))).'\public\users');	//设置目录，尾部不需要/
+//        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
+
         $access_token = Auth::user()->access_token;
         $refresh_token = Auth::user()->refresh_token;
+
+        //生成用户目录ＩＤ用户id＋１００００
+        $userNewId = config('app.useridstart') + Auth::user()->id;
+        $userPcsUrl = FILES_DIR.'\\'.$userNewId;
+
+        $pcsUrl = "Redirect permanent /$userNewId/ https://pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=".$access_token."&path=".config('app.bapppath')."/";
+
+        if(!file_exists($userPcsUrl)){
+            mkdir($userPcsUrl);
+            file_put_contents($userPcsUrl.'\\'.'.htaccess',$pcsUrl);
+        }
+
         if(empty($access_token) || empty($refresh_token)){
             return view('welcome');
         }
@@ -46,11 +58,11 @@ class HomeController extends Controller
         $baidupcs = new BaiduPCS($access_token);
         
         // 当前路径相关信息
-        $remote_dir = "/apps/SyncY";	
+        $remote_dir = config('app.bapppath');
         if(isset($_GET['dir']) && !empty($_GET['dir'])){
         	$dir_pcs_path = str_replace('\\','',$_GET['dir']);
         }else{
-        	$dir_pcs_path = "/apps/SyncY";
+        	$dir_pcs_path = config('app.bapppath');
         }
 
         $limit = "0-0";
@@ -60,13 +72,16 @@ class HomeController extends Controller
         	$orderby = 'time-desc';}
         $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path,$limit,$orderby);
         $access_token=Auth::user()->access_token;
-        
+        $capacity = json_decode($baidupcs->getQuota());
+
         return view('home')->with([
             "files_on_pcs"=>$files_on_pcs,
             "access_token"=>$access_token,
             "remote_dir"=>$remote_dir,
             "dir_pcs_path"=>$dir_pcs_path,
-            "username"=>Auth::user()->name
+            "username"=>Auth::user()->name,
+            "capacity"=>$capacity,
+            "created_at"=>Auth::user()->created_at
         ]);
     }
     
@@ -76,15 +91,20 @@ class HomeController extends Controller
     	$orderby = explode('-', $orderby);
     	$results = $baidupcs->listFiles($dir_pcs_path,$orderby[0],$orderby[1],$limit);
     	$results = json_decode($results);
-    // 	print_r($results);exit;
-    	$results = $results->list;
-    	return $results;
+//     	print_r($results);exit;
+        if(!empty($results->list)){
+            $results = $results->list;
+            return $results;
+        }
+        else{
+            return $results;
+        }
     }
     // 用一个函数来显示这些文件（或目录）
-    public function wp_storage_to_pcs_media_thumbnail($file_pcs_path,$width = 120,$height = 1600,$quality = 100){
+    public function wp_storage_to_pcs_media_thumbnail($file_pcs_path,$user_file_name,$width = 120,$height = 1600,$quality = 100){
     	// 使用直链，有利于快速显示图片
-    	$image_outlink_per = 'http://img.jiangnan.pw/';
-    	$file_pcs_path = str_replace($this->trailing_slash_path('/apps/SyncY'),'',$file_pcs_path);
+    	$image_outlink_per = $user_file_name;
+    	$file_pcs_path = str_replace($this->trailing_slash_path(config('app.bapppath')),'',$file_pcs_path);
     	$thumbnail = $image_outlink_per.$file_pcs_path;
     	return $thumbnail;
     }

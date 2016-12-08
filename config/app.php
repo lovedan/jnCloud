@@ -12,8 +12,10 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
-
+    'name' => '江南云',
+    'description' => '江南云-提供基于天翼云盘的云存储服务，包括图片，音乐，视频，文件的云存储下载服务。',
+    'useridstart' => 10000,
+    'bapppath' => '/apps/SyncY',
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -51,7 +53,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://laravel'),
+    'fileurl' => 'http://file.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'cn',
 
     /*
     |--------------------------------------------------------------------------
