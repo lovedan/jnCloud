@@ -38,7 +38,7 @@ if(!empty($files_on_pcs))
 		// 判断是否为图片
 		if(in_array($file_type,array('jpg','jpeg','png','gif','bmp'))){
 //			$thumbnail = App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl);
-			$thumbnail = 'http://www.jiangnan.pw/images'.$file->path;
+			$thumbnail = config('app.url').'/images'.$file->path;
 			$file_type = 'image';
 		}
 		// 判断是否为视频

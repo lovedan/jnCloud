@@ -91,38 +91,12 @@
                                     <li>
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="/asset/images/user4-128x128.jpg" class="img-circle"
-                                                     alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Developers
-                                                <small><i class="fa fa-clock-o"></i> Today</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
                                                 <img src="/asset/images/user3-128x128.jpg" class="img-circle"
                                                      alt="User Image">
                                             </div>
                                             <h4>
                                                 Sales Department
                                                 <small><i class="fa fa-clock-o"></i> Yesterday</small>
-                                            </h4>
-                                            <p>Why not buy a new awesome theme?</p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left">
-                                                <img src="/asset/images/img/user4-128x128.jpg" class="img-circle"
-                                                     alt="User Image">
-                                            </div>
-                                            <h4>
-                                                Reviewers
-                                                <small><i class="fa fa-clock-o"></i> 2 days</small>
                                             </h4>
                                             <p>Why not buy a new awesome theme?</p>
                                         </a>
@@ -627,7 +601,7 @@
 <!-- SlimScroll -->
 <script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
-<script src="{{ URL::asset('js/fastclick.js') }}"></script>
+<script src="{{ URL::asset('js/fastclick.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ URL::asset('js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
