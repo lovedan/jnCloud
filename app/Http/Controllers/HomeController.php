@@ -39,13 +39,13 @@ class HomeController extends Controller
 
         //生成用户目录ＩＤ用户id＋１００００
         $userNewId = config('app.useridstart') + Auth::user()->id;
-        $userPcsUrl = FILES_DIR.'\\'.$userNewId;
+        $userPcsUrl = FILES_DIR.'/'.$userNewId;
 
         $pcsUrl = "Redirect permanent /$userNewId/ https://pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=".$access_token."&path=".config('app.bapppath')."/";
 
         if(!file_exists($userPcsUrl)){
             mkdir($userPcsUrl);
-            file_put_contents($userPcsUrl.'\\'.'.htaccess',$pcsUrl);
+            file_put_contents($userPcsUrl.'/'.'.htaccess',$pcsUrl);
         }
 
         if(empty($access_token) || empty($refresh_token)){
