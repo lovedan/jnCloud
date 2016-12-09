@@ -53,8 +53,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://laravel'),
-    'fileurl' => 'http://file.com',
+    'url' => env('APP_URL', 'http://www.jiangnan.pw'),
+    'fileurl' => 'http://file.jiangnan.pw',
 
     /*
     |--------------------------------------------------------------------------
