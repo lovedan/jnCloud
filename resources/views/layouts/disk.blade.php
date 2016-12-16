@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }} | {{ config('app.description', 'Laravel') }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -347,11 +348,21 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="box">
-                        <!--<div class="box-header">-->
-                        <!--  <h3 class="box-title">Data Table With Full Features</h3>-->
-                        <!--</div>-->
+                        <div class="box-header">
+                            <a class="btn btn-app">
+                                <i class="fa fa-refresh refresh" onclick="location.reload()"></i> 刷新
+                            </a>
+                            <a class="btn btn-app">
+                                <i class="fa fa-cloud-upload"></i> 上传文件
+                            </a>
+                            <a class="btn btn-app">
+                                <i class="fa fa-folder"></i> 新建文件夹
+                            </a>
+                            <a class="btn btn-app">
+                                <i class="fa fa-recycle"></i> 删除
+                            </a>
                         <!-- /.box-header -->
-                        <div class="box-body">
+                            <hr>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
@@ -363,7 +374,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @yield('databody')
+                                    @yield('databody')
                                 </tbody>
                                 <tfoot>
                                 <tr>
@@ -607,7 +618,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ URL::asset('js/demo.js') }}"></script>
 <!-- page script -->
-<script>
+<script type="application/javascript">
     $(function () {
         $("#example1").DataTable({
             "language": {
@@ -644,7 +655,31 @@
             "info": true,
             "autoWidth": false
         });
+
+        $(".@@@@refresh").click(function(){
+            var id = $(this).data("id");
+            var token = $(this).data("token");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax(
+                {
+                    url:  "{{url('/getmsg')}}",
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+
+                    },
+                    success: function (data)
+                    {
+                        $('#example1_wrapper').html(data.msg);
+                    }
+                });
+        });
     });
+
 </script>
 </body>
 </html>

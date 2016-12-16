@@ -33,3 +33,5 @@ Route::get('/images/{path}', 'ImagesController@index');
 Route::get('/register', 'RegController@index');
 
 Route::post('/logout', 'RegController@logout');
+
+Route::post('/getmsg','AjaxController@index');
