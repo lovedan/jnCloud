@@ -19,7 +19,6 @@
 
 @section('databody')
 <?php
-$userNewId = config('app.useridstart') + Auth::user()->id;
 $userPcsUrl = config('app.fileurl').'/'.$userNewId.'/';
 if(!empty($files_on_pcs))
 {

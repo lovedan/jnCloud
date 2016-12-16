@@ -18,8 +18,8 @@ class BaiduPCS {
 	 * @var array
 	 */
 	private $_pcs_uri_prefixs = array (
-		'https' => 'https://pcs.baidu.com/rest/2.0/pcs/',
-		'createSuperFile' => 'https://c.pcs.baidu.com/rest/2.0/pcs/',
+		'pcs' => 'https://pcs.baidu.com/rest/2.0/pcs/',
+		'openapi' => 'https://openapi.baidu.com/rest/2.0/',
 		'download' => 'https://d.pcs.baidu.com/rest/2.0/pcs/',
 		'downloadStream' => 'https://d.pcs.baidu.com/rest/2.0/pcs/'
 	);
@@ -68,7 +68,7 @@ class BaiduPCS {
 			$params = http_build_query ( $params, '', '&' );
 		}
 
-		$url = $this->_pcs_uri_prefixs ['https'] . $apiMethod . ($method == 'GET' ? '&' . $params : '');
+		$url = $this->_pcs_uri_prefixs ['pcs'] . $apiMethod . ($method == 'GET' ? '&' . $params : '');
 
 		$requestCore = new RequestCore ();
 		$requestCore->set_request_url ( $url );
@@ -115,6 +115,24 @@ class BaiduPCS {
 
 		return $result;
 	}
+
+    /**
+     * 获取当前登录用户的用户uid、用户名和头像。
+     * @return string
+     */
+    public function getLoggedInUser() {
+        $result = $this->_preControl ('openapi', 'passport/users/getLoggedInUser?' . 'access_token=' . $this->_accessToken, array () );
+        return $result;
+    }
+
+    /**
+     * 获取当前登录用户的用户uid、用户名和头像。
+     * @return string
+     */
+    public function getLoggedInUserInfo() {
+        $result = $this->_preControl ('openapi', 'passport/users/getInfo?' . 'access_token=' . $this->_accessToken, array () );
+        return $result;
+    }
 
 	/**
 	 * 获取当前用户空间配额信息

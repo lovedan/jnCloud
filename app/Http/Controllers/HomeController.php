@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use BaiduPCS;
 use Auth;
+use Cookie;
 
 class HomeController extends Controller
 {
@@ -15,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+
     }
 
     /**
@@ -34,19 +35,8 @@ class HomeController extends Controller
         define('FILES_DIR',dirname(dirname(dirname(dirname(__FILE__)))).'/public/users');	//设置目录，尾部不需要/
 //        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
 
-        $access_token = Auth::user()->access_token;
-        $refresh_token = Auth::user()->refresh_token;
-
-        //生成用户目录ＩＤ用户id＋１００００
-        $userNewId = config('app.useridstart') + Auth::user()->id;
-        $userPcsUrl = FILES_DIR.'/'.$userNewId;
-
-        $pcsUrl = "Redirect permanent /$userNewId/ https://pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=".$access_token."&path=".config('app.bapppath')."/";
-
-        if(!file_exists($userPcsUrl)){
-            mkdir($userPcsUrl);
-            file_put_contents($userPcsUrl.'/'.'.htaccess',$pcsUrl);
-        }
+        $access_token = Cookie::get('access_token');
+        $refresh_token = Cookie::get('refresh_token');
 
         if(empty($access_token) || empty($refresh_token)){
             return view('welcome');
@@ -70,19 +60,31 @@ class HomeController extends Controller
         if(isset($_GET['orderby']) && !empty($_GET['orderby'])){
         	$orderby = $_GET['orderby'];}
         else{
-        	$orderby = 'time-desc';}
+        	$orderby = 'time-desc';
+        }
         $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path,$limit,$orderby);
-        $access_token=Auth::user()->access_token;
         $capacity = json_decode($baidupcs->getQuota());
+        $userinfos = json_decode($baidupcs->getLoggedInUserInfo());
+
+        //生成用户目录百度用户ID
+        $userNewId = $userinfos->userid;
+        $userPcsUrl = FILES_DIR.'/'.$userNewId;
+
+        if(!file_exists($userPcsUrl)){
+            $pcsUrl = "Redirect permanent /$userNewId/ https://pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=".$access_token."&path=".config('app.bapppath')."/";
+            mkdir($userPcsUrl);
+            file_put_contents($userPcsUrl.'/'.'.htaccess',$pcsUrl);
+        }
 
         return view('home')->with([
             "files_on_pcs"=>$files_on_pcs,
             "access_token"=>$access_token,
             "remote_dir"=>$remote_dir,
             "dir_pcs_path"=>$dir_pcs_path,
-            "username"=>Auth::user()->name,
+            "userNewId"=>$userNewId,
             "capacity"=>$capacity,
-            "created_at"=>Auth::user()->created_at
+            "userinfos"=>$userinfos,
+            "created_at"=>"created_at",
         ]);
     }
 

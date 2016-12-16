@@ -22,10 +22,14 @@ Route::get('/baidu', function() {
 
 Route::get('/auth', 'BaiduController@index');
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::pattern('path', '[\s\S]*');
 
 Route::get('/images/{path}', 'ImagesController@index');
+
+Route::get('/register', 'RegController@index');
+
+Route::post('/logout', 'RegController@logout');

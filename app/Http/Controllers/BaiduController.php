@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Cookie;
 
 class BaiduController extends Controller
 {
@@ -25,9 +26,13 @@ class BaiduController extends Controller
             	    echo "授权失败";
             		exit;
             	}else{
-                    session(["access_token" => $result_array['access_token']]);
-                    session(["refresh_token" => $result_array['refresh_token']]);
-            	    return redirect('/register');
+//                    session(["access_token" => $result_array['access_token']]);
+//                    session(["refresh_token" => $result_array['refresh_token']]);
+                    $access_token = Cookie::forever('access_token', $result_array['access_token']);
+                    $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
+                    Cookie::queue($access_token);
+                    Cookie::queue($refresh_token);
+            	    return redirect('/home');
             	}
             }
             
