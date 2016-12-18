@@ -39,7 +39,7 @@ class HomeController extends Controller
         $refresh_token = Cookie::get('refresh_token');
 
         if(empty($access_token) || empty($refresh_token)){
-            return view('welcome');
+            return redirect('/');
         }
 
         // $access_token = "21.8b49c1e977dc65d3dc51d1c7f0f7a0e2.2592000.1482660042.1158157186-2293434";

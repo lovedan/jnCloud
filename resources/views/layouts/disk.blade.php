@@ -8,6 +8,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="{{ URL::asset('css/fileinput.min.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -29,6 +30,7 @@
     <![endif]-->
 </head>
 <body class="skin-blue sidebar-mini sidebar-collapse">
+
 <div class="wrapper">
 
     <header class="main-header">
@@ -352,7 +354,7 @@
                             <a class="btn btn-app">
                                 <i class="fa fa-refresh refresh" onclick="location.reload()"></i> 刷新
                             </a>
-                            <a class="btn btn-app">
+                            <a class="btn btn-app remote" data-toggle="modal" data-target="#myModal" href="#">
                                 <i class="fa fa-cloud-upload"></i> 上传文件
                             </a>
                             <a class="btn btn-app">
@@ -361,7 +363,37 @@
                             <a class="btn btn-app">
                                 <i class="fa fa-recycle"></i> 删除
                             </a>
-                        <!-- /.box-header -->
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    {{--style="display: inline-block; width: auto;"--}}
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title">上传文件</h4>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="te">
+                                                <div class="kv-main">
+                                                    <form enctype="multipart/form-data">
+                                                        <input id="file-es" name="file-es[]" type="file" multiple>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+                            <!-- /.box-header -->
                             <hr>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
@@ -606,6 +638,8 @@
 <script src="{{ URL::asset('js/jquery-2.2.3.min.js') }}"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('js/fileinput.min.js')}}" type="text/javascript"></script>
+<script src="{{ URL::asset('js/zh.js')}}" type="text/javascript"></script>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
@@ -679,7 +713,11 @@
                 });
         });
     });
-
+    $('#file-es').fileinput({
+        language: 'zh',
+        uploadUrl: '#',
+        allowedFileExtensions : ['jpg', 'png','gif'],
+    });
 </script>
 </body>
 </html>

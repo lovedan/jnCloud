@@ -63,7 +63,7 @@ if(!empty($files_on_pcs))
 		}
 
         echo '<tr>';
-		echo '<td width="30%" style="line-height:4">';
+		ECHO '<td width="30%" style="line-height:4">';
 		if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
 		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
