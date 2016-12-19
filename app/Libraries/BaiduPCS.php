@@ -112,7 +112,7 @@ class BaiduPCS {
 
 		$requestCore->send_request ();
 		$result = $requestCore->get_response_body ();
-
+        var_dump($url);exit;
 		return $result;
 	}
 
@@ -153,23 +153,24 @@ class BaiduPCS {
 	 * @param boolean $isCreateSuperFile 是否分片上传
 	 * @return string
 	 */
-	public function upload($fileContent, $targetPath, $fileName, $newFileName = null, $isCreateSuperFile = FALSE) {
-		$boundary = md5 ( time () );
-		$postContent .= "--" . $boundary . "\r\n";
-		$postContent .= "Content-Disposition: form-data; name=\"file\"; filename=\"{$fileName}\"\r\n";
-		$postContent .= "Content-Type: application/octet-stream\r\n\r\n";
-		$postContent .= $fileContent . "\r\n";
-		$postContent .= "--" . $boundary . "\r\n";
+    public function upload($fileContent, $targetPath, $fileName, $newFileName = null, $isCreateSuperFile = FALSE) {
+        $boundary = md5 ( time () );
+        $postContent  = "";
+        $postContent .= "--" . $boundary . "\r\n";
+        $postContent .= "Content-Disposition: form-data; name=\"file\"; filename=\"{$fileName}\"\r\n";
+        $postContent .= "Content-Type: application/octet-stream\r\n\r\n";
+        $postContent .= $fileContent . "\r\n";
+        $postContent .= "--" . $boundary . "\r\n";
 
-		$requestStr = 'file?method=upload&path=' . urlencode ( $targetPath . (empty ( $newFileName ) ? $fileName : $newFileName) ) . '&access_token=' . $this->_accessToken;
+        $requestStr = 'file?method=upload&path=' . urlencode ( $targetPath . (empty ( $newFileName ) ? $fileName : $newFileName) ) . '&access_token=' . $this->_accessToken;
 
-		if ($isCreateSuperFile === TRUE) {
-			$requestStr .= '&type=tmpfile';
-		}
+        if ($isCreateSuperFile === TRUE) {
+            $requestStr .= '&type=tmpfile';
+        }
 
-		$result = $this->_baseControl ( $requestStr, $postContent, 'POST', array ('Content-Type' => 'multipart/form-data; boundary=' . $boundary ) );
-		return $result;
-	}
+        $result = $this->_baseControl ( $requestStr, $postContent, 'POST', array ('Content-Type' => 'multipart/form-data; boundary=' . $boundary ) );
+        return $result;
+    }
 
 	/**
 	 * 合并分片上传的文件块

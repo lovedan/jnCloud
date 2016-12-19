@@ -35,3 +35,5 @@ Route::get('/register', 'RegController@index');
 Route::post('/logout', 'RegController@logout');
 
 Route::post('/getmsg','AjaxController@index');
+
+Route::post('/upload','AjaxController@upload');

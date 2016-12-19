@@ -378,7 +378,7 @@
                                             <div class="te">
                                                 <div class="kv-main">
                                                     <form enctype="multipart/form-data">
-                                                        <input id="file-es" name="file-es[]" type="file" multiple>
+                                                        <input id="file-zh" name="file" type="file" multiple>
                                                     </form>
                                                 </div>
                                             </div>
@@ -395,6 +395,10 @@
                             <!-- /.modal -->
                             <!-- /.box-header -->
                             <hr>
+                            <form enctype="multipart/form-data" action="https://pcs.baidu.com/rest/2.0/pcs/file?method=upload&path=%2fapps%2fSyncY%2f1.JPG&access_token=21.69f8dd0314b0eacfd8c8578ccebacd35.2592000.1484702113.520904808-2293434" method="post">
+                                <input id="file" name="file" type="file" multiple>
+                                <input type="submit" value="tijiao">
+                            </form>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
@@ -653,71 +657,7 @@
 <script src="{{ URL::asset('js/demo.js') }}"></script>
 <!-- page script -->
 <script type="application/javascript">
-    $(function () {
-        $("#example1").DataTable({
-            "language": {
-                "decimal": "",
-                "emptyTable": "No data available in table",
-                "info": "显示 _START_ 到 _END_ 共 _TOTAL_ 记录",
-                "infoEmpty": "Showing 0 to 0 of 0 entries",
-                "infoFiltered": "(从 _MAX_ 条记录中过滤)",
-                "infoPostFix": "",
-                "thousands": ",",
-                "lengthMenu": "显示 _MENU_ 条记录",
-                "loadingRecords": "Loading...",
-                "processing": "Processing...",
-                "search": "搜索:",
-                "zeroRecords": "No matching records found",
-                "paginate": {
-                    "first": "首页",
-                    "last": "最后",
-                    "next": "下一页",
-                    "previous": "上一页"
-                },
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
-                }
-            }
 
-        });
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
-
-        $(".@@@@refresh").click(function(){
-            var id = $(this).data("id");
-            var token = $(this).data("token");
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax(
-                {
-                    url:  "{{url('/getmsg')}}",
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-
-                    },
-                    success: function (data)
-                    {
-                        $('#example1_wrapper').html(data.msg);
-                    }
-                });
-        });
-    });
-    $('#file-es').fileinput({
-        language: 'zh',
-        uploadUrl: '#',
-        allowedFileExtensions : ['jpg', 'png','gif'],
-    });
 </script>
 </body>
 </html>

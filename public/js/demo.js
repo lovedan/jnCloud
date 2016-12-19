@@ -338,3 +338,79 @@
 
   }
 })(jQuery, $.AdminLTE);
+$(function () {
+    $("#example1").DataTable({
+        "language": {
+            "decimal": "",
+            "emptyTable": "No data available in table",
+            "info": "显示 _START_ 到 _END_ 共 _TOTAL_ 记录",
+            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "infoFiltered": "(从 _MAX_ 条记录中过滤)",
+            "infoPostFix": "",
+            "thousands": ",",
+            "lengthMenu": "显示 _MENU_ 条记录",
+            "loadingRecords": "Loading...",
+            "processing": "Processing...",
+            "search": "搜索:",
+            "zeroRecords": "No matching records found",
+            "paginate": {
+                "first": "首页",
+                "last": "最后",
+                "next": "下一页",
+                "previous": "上一页"
+            },
+            "aria": {
+                "sortAscending": ": activate to sort column ascending",
+                "sortDescending": ": activate to sort column descending"
+            }
+        }
+
+    });
+    $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false
+    });
+
+    $(".@@@@refresh").click(function(){
+        var id = $(this).data("id");
+        var token = $(this).data("token");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax(
+            {
+                url:  "{{url('/getmsg')}}",
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+
+                },
+                success: function (data)
+                {
+                    $('#example1_wrapper').html(data.msg);
+                }
+            });
+    });
+});
+$('#file-zh').fileinput({
+    // showPreview: false,
+    showUpload: false,
+    language: 'zh',
+    uploadUrl: '/upload',
+    allowedFileExtensions : ['jpg', 'png','gif'],
+    // uploadExtraData: {
+    //     img_key: "1000",
+    //     img_keywords: "happy, places"
+    // }
+});
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
