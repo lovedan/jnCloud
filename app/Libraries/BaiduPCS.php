@@ -112,7 +112,7 @@ class BaiduPCS {
 
 		$requestCore->send_request ();
 		$result = $requestCore->get_response_body ();
-        var_dump($url);exit;
+
 		return $result;
 	}
 
@@ -162,7 +162,7 @@ class BaiduPCS {
         $postContent .= $fileContent . "\r\n";
         $postContent .= "--" . $boundary . "\r\n";
 
-        $requestStr = 'file?method=upload&path=' . urlencode ( $targetPath . (empty ( $newFileName ) ? $fileName : $newFileName) ) . '&access_token=' . $this->_accessToken;
+        $requestStr = 'file?method=upload&ondup=newcopy&path=' . urlencode ( $targetPath . (empty ( $newFileName ) ? $fileName : $newFileName) ) . '&access_token=' . $this->_accessToken;
 
         if ($isCreateSuperFile === TRUE) {
             $requestStr .= '&type=tmpfile';

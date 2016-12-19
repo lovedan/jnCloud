@@ -23,7 +23,7 @@ class AjaxController extends Controller
         $file_size = filesize($local_path);
         $handle = @fopen($local_path,'r');
         $file_content = fread($handle,$file_size);
-        $result = $baidupcs->upload($file_content,urlencode($remote_dir.'/'.$file_name),$file_name);
+        $result = $baidupcs->upload($file_content,$remote_dir.'/',$file_name);
         fclose($handle);
         return response()->json(array('msg'=> $result), 200);
     }
