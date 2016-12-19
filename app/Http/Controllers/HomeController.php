@@ -94,13 +94,12 @@ class HomeController extends Controller
     	$orderby = explode('-', $orderby);
     	$results = $baidupcs->listFiles($dir_pcs_path,$orderby[0],$orderby[1],$limit);
     	$results = json_decode($results);
-//     	print_r($results);exit;
         if(!empty($results->list)){
             $results = $results->list;
             return $results;
         }
         else{
-            return $results;
+            return null;
         }
     }
     // 用一个函数来显示这些文件（或目录）
@@ -108,7 +107,7 @@ class HomeController extends Controller
     	// 使用直链，有利于快速显示图片
     	$image_outlink_per = $user_file_name;
     	$file_pcs_path = str_replace($this->trailing_slash_path(config('app.bapppath')),'',$file_pcs_path);
-    	$thumbnail = $image_outlink_per.$file_pcs_path;
+    	$thumbnail = urldecode($image_outlink_per.$file_pcs_path);
     	return $thumbnail;
     }
 

@@ -17,17 +17,13 @@ class AjaxController extends Controller
     }
     public function upload(Request $request){
         $baidupcs = new BaiduPCS(Cookie::get('access_token'));
-        $remote_dir = config('app.bapppath');
-        if(is_array($_FILES['file']['tmp_name'])){
-            var_dump($_FILES['file']['tmp_name']);
-            exit;
-            foreach ($_FILES['file']['tmp_name'] as $file){
-                var_dump($file);
-            }
+        if(empty($_POST["dir"])){
+            $remote_dir = config('app.bapppath');
+        }else{
+            $remote_dir = urldecode($_POST["dir"]);
         }
-        exit;
-        $local_path="C:\Users\FKJW068\Documents\ipmsg_img\ipmsgclip_r_1481690537_0.png";
-        $file_name = basename($local_path);
+        $local_path = $_FILES['file']['tmp_name'];
+        $file_name = $_FILES['file']['name'];
         $file_size = filesize($local_path);
         $handle = @fopen($local_path,'r');
         $file_content = fread($handle,$file_size);

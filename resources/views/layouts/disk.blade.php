@@ -395,10 +395,6 @@
                             <!-- /.modal -->
                             <!-- /.box-header -->
                             <hr>
-                            <form enctype="multipart/form-data" action="https://pcs.baidu.com/rest/2.0/pcs/file?method=upload&path=%2fapps%2fSyncY%2f1.JPG&access_token=21.69f8dd0314b0eacfd8c8578ccebacd35.2592000.1484702113.520904808-2293434" method="post">
-                                <input id="file" name="file" type="file" multiple>
-                                <input type="submit" value="tijiao">
-                            </form>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>

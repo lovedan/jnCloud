@@ -337,7 +337,15 @@
     }
 
   }
+
+    $.getUrlParam = function(name)
+    {
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = encodeURI(window.location.search).substr(1).match(reg);
+        if (r!=null) return unescape(r[2]); return null;
+    }
 })(jQuery, $.AdminLTE);
+
 $(function () {
     $("#example1").DataTable({
         "language": {
@@ -399,15 +407,22 @@ $(function () {
     });
 });
 $('#file-zh').fileinput({
-    // showPreview: false,
-    showUpload: false,
+    showPreview: true,
+    showUpload: true,
     language: 'zh',
     uploadUrl: '/upload',
     allowedFileExtensions : ['jpg', 'png','gif'],
-    // uploadExtraData: {
-    //     img_key: "1000",
-    //     img_keywords: "happy, places"
-    // }
+    uploadExtraData: {
+        dir: $.getUrlParam('dir')
+    }
+});
+$('#file-zh').on('filepreupload', function (event, data, previewId, index) {
+    var src = $('#' + previewId + ' img').attr('src');
+    // alert(data);
+});
+$('#myModal').on('click', '.modal-footer .btn-default', function() {
+    $('#file-zh').modal('hide');
+    location.reload();
 });
 $.ajaxSetup({
     headers: {
