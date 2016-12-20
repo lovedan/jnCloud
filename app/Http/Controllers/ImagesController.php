@@ -11,7 +11,7 @@ class ImagesController extends Controller
 {
     public function index($path)
     {
-        $thumbnail = session("baidupcs")->thumbnail($path, '100', '100');
+        $thumbnail = session("baidupcs")->thumbnail($path, '50', '50');
         return $thumbnail;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use Cookie;
 use Illuminate\Support\Facades\Input;
 use BaiduPCS;
@@ -17,7 +18,7 @@ class AjaxController extends Controller
     }
     public function upload(Request $request){
         $baidupcs = new BaiduPCS(Cookie::get('access_token'));
-        if(empty($_POST["dir"])){
+        if($_POST["dir"] == 'null'){
             $remote_dir = config('app.bapppath');
         }else{
             $remote_dir = urldecode($_POST["dir"]);
@@ -31,4 +32,18 @@ class AjaxController extends Controller
         fclose($handle);
         return response()->json(array('msg'=> $result), 200);
     }
+    public function checkdel(Request $request){
+
+        $baidupcs = new BaiduPCS(Cookie::get('access_token'));
+        if(!empty($_POST['del'])){
+            $delFiles= explode(',',$_POST['del']);
+            $result = $baidupcs->deleteBatch($delFiles);
+        }else{
+            $result="";
+        }
+        $html = "";
+
+        return response()->json(array('msg'=> $result,'html'=>$html), 200);
+    }
+
 }

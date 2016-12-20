@@ -63,8 +63,11 @@ if(!empty($files_on_pcs))
 		}
 
         echo '<tr>';
-		ECHO '<td width="30%" style="line-height:4">';
-		if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
+        echo '<td width="5%" style="line-height:4">';
+        echo '<input type="checkbox" name="delFile[]" class="minimal-red" value="'.urldecode($file->path).'">';
+        echo '</td>';
+        echo '<td width="30%" style="line-height:4">';
+        if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
 		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
 			elseif($file_type == 'dir')echo '<img src="asset/folder.png" alt="'.$file_name.'"/>';

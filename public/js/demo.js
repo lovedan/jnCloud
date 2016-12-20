@@ -383,9 +383,43 @@ $(function () {
         "autoWidth": false
     });
 
-    $(".@@@@refresh").click(function(){
-        var id = $(this).data("id");
-        var token = $(this).data("token");
+    $("#delbtn").click(function(){
+        var ids = "";
+        var str = "";
+        $("#example1 td.sorting_1 input").each(function(){
+            if(true == $(this).is(':checked')){
+                str+=$(this).val()+",";
+            }
+        });
+        if(str.substr(str.length-1)== ','){
+            ids = str.substr(0,str.length-1);
+        }
+        if(ids == ""){
+            $("#alert .modal-title").text("");//修改Title
+            $("#alert .modal-body").html("<B>请选择要删除的文件！</B>");//修改body
+            $("#alert .modal-footer #deltrue").hide();//修改body
+            $('#alert').modal('show');//点击按钮显示
+            return false;
+        }else {
+            $("#alert .modal-title").text("");//修改Title
+            $("#alert .modal-body").html("<B>确认删除吗？</B>");//修改body
+            $("#alert .modal-footer #deltrue").show();//修改body
+            $('#alert').modal('show');//点击按钮显示
+            return false;
+        }
+    });
+
+    $("#deltrue").click(function(){
+        var ids = "";
+        var str = "";
+        $("#example1 td.sorting_1 input").each(function(){
+            if(true == $(this).is(':checked')){
+                str+=$(this).val()+",";
+            }
+        });
+        if(str.substr(str.length-1)== ','){
+            ids = str.substr(0,str.length-1);
+        }
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -393,18 +427,27 @@ $(function () {
         });
         $.ajax(
             {
-                url:  "{{url('/getmsg')}}",
+                url:  '/checkdel',
                 type: 'POST',
                 dataType: 'JSON',
-                data: {
-
-                },
+                // data: $(".checkDel").serialize(),
+                data: {del:ids},
+                async: false,
                 success: function (data)
                 {
-                    $('#example1_wrapper').html(data.msg);
+                    location.reload();
+                },
+                error: function (request) {
+                    alert("删除失败！");
                 }
             });
     });
+
+    $("#refresh").click(function(){
+        $('#file-zh').modal('show');
+        location.reload();
+    });
+
 });
 $('#file-zh').fileinput({
     showPreview: true,
@@ -420,12 +463,25 @@ $('#file-zh').on('filepreupload', function (event, data, previewId, index) {
     var src = $('#' + previewId + ' img').attr('src');
     // alert(data);
 });
-$('#myModal').on('click', '.modal-footer .btn-default', function() {
-    $('#file-zh').modal('hide');
+$('#myModal').on('click', '.modal-footer .uploadCloseBtn', function() {
+    $('#file-zh').modal('show');
     location.reload();
 });
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+});
+$('input').iCheck('uncheck');
+//Red color scheme for iCheck
+$('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+    checkboxClass: 'icheckbox_minimal-red',
+    radioClass: 'iradio_minimal-red'
+});
+//全选反选
+$('#allCheck').on('ifChecked', function(event){
+    $('input').iCheck('check');
+});
+$('#allCheck').on('ifUnchecked', function(event){
+    $('input').iCheck('uncheck');
 });

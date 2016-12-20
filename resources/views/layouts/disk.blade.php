@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ URL::asset('css/AdminLTE.min.css') }}">
+    <!--  style -->
+    <link rel="stylesheet" href="{{ URL::asset('css/red.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ URL::asset('css/_all-skins.min.css') }}">
@@ -351,18 +353,18 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <a class="btn btn-app">
-                                <i class="fa fa-refresh refresh" onclick="location.reload()"></i> 刷新
-                            </a>
-                            <a class="btn btn-app remote" data-toggle="modal" data-target="#myModal" href="#">
+                            <div class="btn btn-app" id="refresh">
+                                <i class="fa fa-refresh"></i> <span id="">刷新</span>
+                            </div>
+                            <a class="btn btn-app" data-toggle="modal" data-target="#myModal" href="#">
                                 <i class="fa fa-cloud-upload"></i> 上传文件
                             </a>
-                            <a class="btn btn-app">
+                            <div class="btn btn-app" id="newfolder">
                                 <i class="fa fa-folder"></i> 新建文件夹
-                            </a>
-                            <a class="btn btn-app">
-                                <i class="fa fa-recycle"></i> 删除
-                            </a>
+                            </div>
+                            <div class="btn btn-app" id="delbtn" data-toggle="modal" data-target="#alert" >
+                                <i class="fa fa-recycle"></i> <span id="">删除</span>
+                            </div>
 
                             <!-- Modal -->
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -384,7 +386,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            <button type="button" class="btn btn-default uploadCloseBtn" data-dismiss="modal">关闭</button>
                                             {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
                                         </div>
                                     </div>
@@ -394,10 +396,32 @@
                             </div>
                             <!-- /.modal -->
                             <!-- /.box-header -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="alert" tabindex="-1" role="dialog" aria-labelledby="alertLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    {{--style="display: inline-block; width: auto;"--}}
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title"></h4>
+
+                                        </div>
+                                        <div class="modal-body"></div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                            <button type="button" class="btn btn-primary" id="deltrue">确认</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
                             <hr>
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="allCheck" class="minimal-red"></th>
                                     <th>文件名</th>
                                     <th>直链地址</th>
                                     <th>文件大小</th>
@@ -406,10 +430,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    @yield('databody')
+                                    <form id="checkDel" name="checkDel" action="{{ url('/checkdel') }}" method="POST">
+                                        {{ csrf_field() }}
+                                        @yield('databody')
+                                    </form>
                                 </tbody>
                                 <tfoot>
                                 <tr>
+                                    <th><input type="checkbox" class="minimal-red"></th>
                                     <th>文件名</th>
                                     <th>直链地址</th>
                                     <th>文件大小</th>
@@ -647,6 +675,8 @@
 <script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ URL::asset('js/fastclick.min.js') }}"></script>
+<!-- icheck -->
+<script src="{{ URL::asset('js/icheck.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ URL::asset('js/app.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
