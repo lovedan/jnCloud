@@ -63,10 +63,10 @@ if(!empty($files_on_pcs))
 		}
 
         echo '<tr>';
-        echo '<td width="5%" style="line-height:4">';
+        echo '<td width="2%" style="line-height:4">';
         echo '<input type="checkbox" name="delFile[]" class="minimal-red" value="'.urldecode($file->path).'">';
         echo '</td>';
-        echo '<td width="30%" style="line-height:4">';
+        echo '<td width="10%" style="line-height:4">';
         if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
 		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
@@ -75,7 +75,7 @@ if(!empty($files_on_pcs))
 			elseif($file_type == 'audio')echo '<img src="asset/audio.png" alt="'.$file_name.'"/>';
 			else echo '<img src="asset/archive.png" alt="'.$file_name.'"/>';
 		if($link)echo '</a>';
-		echo $file_name;
+//		echo $file_name;
         echo '</td>';
         echo '<td width="50%" >';
         if($file_type != 'dir') echo '直链地址：<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'"><BR>';

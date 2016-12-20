@@ -436,14 +436,7 @@
                                     </form>
                                 </tbody>
                                 <tfoot>
-                                <tr>
-                                    <th><input type="checkbox" class="minimal-red"></th>
-                                    <th>文件名</th>
-                                    <th>直链地址</th>
-                                    <th>文件大小</th>
-                                    <th>修改时间</th>
-                                    <!--<th>CSS grade</th>-->
-                                </tr>
+
                                 </tfoot>
                             </table>
                         </div>

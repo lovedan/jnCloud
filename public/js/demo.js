@@ -382,7 +382,9 @@ $(function () {
         "info": true,
         "autoWidth": false
     });
-
+    $(".form-control").hover(function () {
+       $(this).select();
+    });
     $("#delbtn").click(function(){
         var ids = "";
         var str = "";
