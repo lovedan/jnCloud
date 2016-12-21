@@ -69,7 +69,7 @@
     <div class="inner-bg">
         <div class="container">
             <div class="row">
-                <div class="col-sm-7 text">
+                <div class="col-sm-12 text">
                     <h1>欢迎使用<strong>江南云</strong> 服务</h1>
                     <div class="description">
                         <p>
@@ -82,7 +82,7 @@
                         <a class="btn btn-link-2" href="#">天翼授权</a>
                     </div>
                 </div>
-                @yield('form')
+                {{--@yield('form')--}}
             </div>
         </div>
     </div>
