@@ -382,9 +382,6 @@ $(function () {
         "info": true,
         "autoWidth": false
     });
-    $(".form-control").hover(function () {
-       $(this).select();
-    });
     $("#delbtn").click(function(){
         var ids = "";
         var str = "";
@@ -486,4 +483,10 @@ $('#allCheck').on('ifChecked', function(event){
 });
 $('#allCheck').on('ifUnchecked', function(event){
     $('input').iCheck('uncheck');
+});
+
+$(".form-control").hover(function(){
+    $(this).select();
+},function(){
+    $(this).empty();
 });
