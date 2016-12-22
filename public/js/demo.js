@@ -348,6 +348,7 @@
 
 $(function () {
     $("#example1").DataTable({
+        "order": [[ 2, 'asc' ]],
         "language": {
             "decimal": "",
             "emptyTable": "当前文件夹下没有数据",
@@ -374,14 +375,14 @@ $(function () {
         }
 
     });
-    $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false
-    });
+    // $('#example2').DataTable({
+    //     "paging": true,
+    //     "lengthChange": false,
+    //     "searching": false,
+    //     "ordering": true,
+    //     "info": true,
+    //     "autoWidth": false
+    // });
     $("#delbtn").click(function(){
         var ids = "";
         var str = "";

@@ -310,7 +310,7 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="allCheck" class="minimal-red"></th>
+                                    <th data-orderable="false" ><input type="checkbox" id="allCheck" class="minimal-red"></th>
                                     <th>文件名</th>
                                     <th>直链地址</th>
                                     <th>文件大小</th>
@@ -361,7 +361,8 @@
             <!-- Stats tab content -->
             <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
             <!-- /.tab-pane -->
-            <div class="tab-pane active" id="control-sidebar-home-tab">
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                {{--active默认显示--}}
                 <h3 class="control-sidebar-heading">新功能正在紧张开发中……</h3>
             </div>
         </div>

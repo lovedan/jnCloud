@@ -67,11 +67,11 @@ if(!empty($files_on_pcs))
 			$file_type = 'dir';
 		}
 
-        echo '<tr>';
+        echo '<tr style="font-size: 10px;">';
         echo '<td width="2%" style="line-height:4">';
         echo '<input type="checkbox" name="delFile[]" class="minimal-red" value="'.urldecode($file->path).'">';
         echo '</td>';
-        echo '<td width="10%" style="line-height:4">';
+        echo '<td width="30%" style="line-height:4;">';
         if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
 		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
@@ -81,10 +81,10 @@ if(!empty($files_on_pcs))
 			elseif($file_type == 'text')echo '<img src="asset/images/text.png" alt="'.$file_name.'"/>';
 			else echo '<img src="asset/images/unknown.png" alt="'.$file_name.'"/>';
 		if($link)echo '</a>';
-//		echo $file_name;
+		echo "&nbsp;&nbsp;".$file_name;
         echo '</td>';
-        echo '<td width="50%" style="vertical-align:middle">';
-        if($file_type != 'dir') echo '<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'">';
+        echo '<td width="30%" style="vertical-align:middle">';
+        if($file_type != 'dir') echo '<input style="font-size: 10px;" type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'">';
 //        if($file_type != 'dir') echo 'MarkDown地址：<input type="text" class="form-control " value="!['.$file_name.']('.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).')">';
         echo '</td>';
         echo '<td width="10%" style="line-height:4">';
