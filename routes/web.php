@@ -39,3 +39,5 @@ Route::post('/getmsg','AjaxController@index');
 Route::post('/upload','AjaxController@upload');
 
 Route::post('/checkdel','AjaxController@checkdel');
+
+Route::post('/newfolder','AjaxController@newfolder');

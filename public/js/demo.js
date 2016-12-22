@@ -51,55 +51,55 @@
   //Layout options
   demo_settings.append(
       "<h4 class='control-sidebar-heading'>"
-      + "Layout Options"
+      + "布局主题设置"
       + "</h4>"
         //Fixed layout
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-layout='fixed' class='pull-right'/> "
-      + "Fixed layout"
+      + "自适应布局"
       + "</label>"
-      + "<p>Activate the fixed layout. You can't use fixed and boxed layouts together</p>"
+      + "<p>激活固定布局。你不能同时使用固定和盒式布局 </p>"
       + "</div>"
         //Boxed layout
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-layout='layout-boxed'class='pull-right'/> "
-      + "Boxed Layout"
+      + "盒式布局"
       + "</label>"
-      + "<p>Activate the boxed layout</p>"
+      + "<p>激活盒式布局</p>"
       + "</div>"
         //Sidebar Toggle
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-layout='sidebar-collapse' class='pull-right'/> "
-      + "Toggle Sidebar"
+      + "侧边栏开关"
       + "</label>"
-      + "<p>Toggle the left sidebar's state (open or collapse)</p>"
+      + "<p>切换左侧边栏的状态（开或关）</p>"
       + "</div>"
         //Sidebar mini expand on hover toggle
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-enable='expandOnHover' class='pull-right'/> "
-      + "Sidebar Expand on Hover"
+      + "切换侧边栏"
       + "</label>"
-      + "<p>Let the sidebar mini expand on hover</p>"
+      + "<p>鼠标经过侧边栏小图标，自动显示左右侧边栏内容</p>"
       + "</div>"
         //Control Sidebar Toggle
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-controlsidebar='control-sidebar-open' class='pull-right'/> "
-      + "Toggle Right Sidebar Slide"
+      + "设置中心显示"
       + "</label>"
-      + "<p>Toggle between slide over content and push content effects</p>"
+      + "<p>可以设置为始终在主面板之前，或者设置为和主面板并排显示</p>"
       + "</div>"
         //Control Sidebar Skin Toggle
       + "<div class='form-group'>"
       + "<label class='control-sidebar-subheading'>"
       + "<input type='checkbox' data-sidebarskin='toggle' class='pull-right'/> "
-      + "Toggle Right Sidebar Skin"
+      + "设置中心样式"
       + "</label>"
-      + "<p>Toggle between dark and light skins for the right sidebar</p>"
+      + "<p>可以在黑白两色中切换设置中心样式</p>"
       + "</div>"
   );
   var skins_list = $("<ul />", {"class": 'list-unstyled clearfix'});
@@ -204,11 +204,11 @@
           + "<p class='text-center no-margin' style='font-size: 12px;'>Yellow Light</p>");
   skins_list.append(skin_yellow_light);
 
-  demo_settings.append("<h4 class='control-sidebar-heading'>Skins</h4>");
+  demo_settings.append("<h4 class='control-sidebar-heading'>主题</h4>");
   demo_settings.append(skins_list);
 
   tab_pane.append(demo_settings);
-  $("#control-sidebar-home-tab").after(tab_pane);
+  $("#control-sidebar-stats-tab").after(tab_pane);
 
   setup();
 
@@ -350,9 +350,9 @@ $(function () {
     $("#example1").DataTable({
         "language": {
             "decimal": "",
-            "emptyTable": "No data available in table",
-            "info": "显示 _START_ 到 _END_ 共 _TOTAL_ 记录",
-            "infoEmpty": "Showing 0 to 0 of 0 entries",
+            "emptyTable": "当前文件夹下没有数据",
+            "info": "显示 _START_ 到 _END_ 共 _TOTAL_ 条记录",
+            "infoEmpty": "共 0 条记录",
             "infoFiltered": "(从 _MAX_ 条记录中过滤)",
             "infoPostFix": "",
             "thousands": ",",
@@ -442,6 +442,34 @@ $(function () {
             });
     });
 
+    $("#newfolder").click(function(){
+        var newFolderName = $("#newfolderModal #recipient-name").val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax(
+            {
+                url:  '/newfolder',
+                type: 'POST',
+                dataType: 'JSON',
+                // data: $(".checkDel").serialize(),
+                data: {
+                    name:newFolderName,
+                    dir:$.getUrlParam('dir')
+                },
+                async: false,
+                success: function (data)
+                {
+                    location.reload();
+                },
+                error: function (request) {
+                    alert("新建文件夹失败！");
+                }
+            });
+    });
+
     $("#refresh").click(function(){
         $('#file-zh').modal('show');
         location.reload();
@@ -490,3 +518,13 @@ $(".form-control").hover(function(){
 },function(){
     $(this).empty();
 });
+
+$('#newfolderModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var recipient = button.data('whatever') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text(' ' + recipient)
+    modal.find('.modal-body input').val(recipient)
+})

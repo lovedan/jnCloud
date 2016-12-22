@@ -45,5 +45,23 @@ class AjaxController extends Controller
 
         return response()->json(array('msg'=> $result,'html'=>$html), 200);
     }
+    public function newfolder(Request $request){
+
+        $baidupcs = new BaiduPCS(Cookie::get('access_token'));
+        $folderName = $_POST["name"];
+        if($_POST["dir"] == 'null' || empty($_POST["dir"])){
+            $remote_dir = config('app.bapppath');
+        }else{
+            $remote_dir = urldecode($_POST["dir"]);
+        }
+
+        if($folderName == 'null' || empty($folderName)){
+            $result = "请填写文件夹名";
+        }else{
+            $result = $baidupcs->makeDirectory($remote_dir.'/'.$folderName);
+        }
+
+        return response()->json(array('msg'=> $result), 200);
+    }
 
 }
