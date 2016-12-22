@@ -32,8 +32,8 @@ class AjaxController extends Controller
         fclose($handle);
         return response()->json(array('msg'=> $result), 200);
     }
-    public function checkdel(Request $request){
-
+    public function checkdel(Request $request)
+    {
         $baidupcs = new BaiduPCS(Cookie::get('access_token'));
         if(!empty($_POST['del'])){
             $delFiles= explode(',',$_POST['del']);

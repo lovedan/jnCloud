@@ -383,10 +383,11 @@ $(function () {
     //     "info": true,
     //     "autoWidth": false
     // });
-    $("#delbtn").click(function(){
+
+    function serchDelFile() {
         var ids = "";
         var str = "";
-        $("#example1 td.sorting_1 input").each(function(){
+        $("#example1 td input").each(function(){
             if(true == $(this).is(':checked')){
                 str+=$(this).val()+",";
             }
@@ -394,16 +395,26 @@ $(function () {
         if(str.substr(str.length-1)== ','){
             ids = str.substr(0,str.length-1);
         }
+
+        return ids;
+    }
+    $("#delbtn").click(function()
+    {
+        var ids = "";
+        ids = serchDelFile();
         if(ids == ""){
             $("#alert .modal-title").text("");//修改Title
             $("#alert .modal-body").html("<B>请选择要删除的文件！</B>");//修改body
-            $("#alert .modal-footer #deltrue").hide();//修改body
+            $("#alert .modal-footer #deltrue").hide();//
+            $("#alert .modal-footer #uploadCloseBtn").hide();//
+
             $('#alert').modal('show');//点击按钮显示
             return false;
         }else {
             $("#alert .modal-title").text("");//修改Title
             $("#alert .modal-body").html("<B>确认删除吗？</B>");//修改body
-            $("#alert .modal-footer #deltrue").show();//修改body
+            $("#alert .modal-footer #deltrue").show();//
+            $("#alert .modal-footer #uploadCloseBtn").hide();//
             $('#alert').modal('show');//点击按钮显示
             return false;
         }
@@ -411,15 +422,8 @@ $(function () {
 
     $("#deltrue").click(function(){
         var ids = "";
-        var str = "";
-        $("#example1 td.sorting_1 input").each(function(){
-            if(true == $(this).is(':checked')){
-                str+=$(this).val()+",";
-            }
-        });
-        if(str.substr(str.length-1)== ','){
-            ids = str.substr(0,str.length-1);
-        }
+        ids = serchDelFile();
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -435,10 +439,16 @@ $(function () {
                 async: false,
                 success: function (data)
                 {
-                    location.reload();
+                    $("#alert .modal-body").html("<B>删除成功！</B>");//修改body
+                    $("#alert .modal-footer #deltrue").hide();//
+                    $("#alert .modal-footer #uploadCloseBtn").show();//
+                    $('#alert').modal('show');//点击按钮显示
                 },
                 error: function (request) {
-                    alert("删除失败！");
+                    $("#alert .modal-body").html("<B>删除失败！</B>");//修改body
+                    $("#alert .modal-footer #deltrue").hide();//
+                    $("#alert .modal-footer #uploadCloseBtn").hide();//
+                    $('#alert').modal('show');//点击按钮显示
                 }
             });
     });
@@ -492,6 +502,10 @@ $('#file-zh').on('filepreupload', function (event, data, previewId, index) {
     // alert(data);
 });
 $('#myModal').on('click', '.modal-footer .uploadCloseBtn', function() {
+    $('#file-zh').modal('show');
+    location.reload();
+});
+$('#alert').on('click', '.modal-footer #uploadCloseBtn', function() {
     $('#file-zh').modal('show');
     location.reload();
 });
