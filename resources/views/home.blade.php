@@ -46,9 +46,14 @@ if(!empty($files_on_pcs))
 			$class .= ' file-type-video ';
 		}
 		// 判断是否为音频
-		elseif($file_type == 'mp3'){ //array('ogg','mp3','wma','wav','mp3pro','mid','midi')
+		elseif(in_array($file_type,array('ogg','mp3','wma','wav','mp3pro','mid','midi'))){
 			$file_type = 'audio';
 			$class .= ' file-type-audio ';
+		}
+		// 判断是否为文本
+		elseif(in_array($file_type,array('xls','txt','doc','docx','xlsx'))){
+			$file_type = 'text';
+			$class .= ' file-type-text ';
 		}
 		else{
 			$file_type = 'file';
@@ -70,15 +75,16 @@ if(!empty($files_on_pcs))
         if($link)echo '<a class="gallery-item" href="/home?dir='.$file->path.'" title="'.$file_name.'" data-gallery>';
 		// echo '<div class="file-on-pcs'.$class.'" data-file-name="'.$file_name.'" data-file-type="'.$file_type.'" data-file-path="'.$file->path.'">';
 		if($thumbnail)echo '<img src="'.$thumbnail.'" alt="'.$file_name.'"/>';
-			elseif($file_type == 'dir')echo '<img src="asset/folder.png" alt="'.$file_name.'"/>';
-			elseif($file_type == 'video')echo '<img src="asset/video.png" alt="'.$file_name.'"/>';
-			elseif($file_type == 'audio')echo '<img src="asset/audio.png" alt="'.$file_name.'"/>';
-			else echo '<img src="asset/archive.png" alt="'.$file_name.'"/>';
+			elseif($file_type == 'dir')echo '<img src="asset/images/folder.png" alt="'.$file_name.'"/>';
+			elseif($file_type == 'video')echo '<img src="asset/images/video.png" alt="'.$file_name.'"/>';
+			elseif($file_type == 'audio')echo '<img src="asset/images/music.png" alt="'.$file_name.'"/>';
+			elseif($file_type == 'text')echo '<img src="asset/images/text.png" alt="'.$file_name.'"/>';
+			else echo '<img src="asset/images/unknown.png" alt="'.$file_name.'"/>';
 		if($link)echo '</a>';
 //		echo $file_name;
         echo '</td>';
-        echo '<td width="50%" >';
-        if($file_type != 'dir') echo '直链地址：<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'"><BR>';
+        echo '<td width="50%" style="vertical-align:middle">';
+        if($file_type != 'dir') echo '<input type="text" class="form-control " value="'.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).'">';
 //        if($file_type != 'dir') echo 'MarkDown地址：<input type="text" class="form-control " value="!['.$file_name.']('.App::make('app\Http\Controllers\HomeController')->wp_storage_to_pcs_media_thumbnail($file->path,$userPcsUrl).')">';
         echo '</td>';
         echo '<td width="10%" style="line-height:4">';
