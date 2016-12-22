@@ -31,7 +31,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini">
+<body class="skin-blue sidebar-collapse sidebar-mini">
 {{--sidebar-collapse 初始侧边小图标显示--}}
 
 <div class="wrapper">
