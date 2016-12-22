@@ -73,10 +73,14 @@
             <div class="row">
                 <div class="col-sm-12 text">
                     <h1>欢迎使用<strong>江南云</strong> 服务</h1>
-                    <div class="description">
-                        <p>
-                            江南云-提供基于天翼云盘的云存储服务，包括图片，音乐，视频，文件的云存储下载服务。
-                            <!--<a href="http://azmind.com"><strong>AZMIND</strong></a>, customize and use it as you like!-->
+                    <div class="description text-left">
+                        <p class="col-centered">
+                            江南云-提供基于百度云，天翼云(正在开发中Y(^_^)Y)的云存储服务，包括图片，音乐，视频，文件的云存储下载服务。
+                        </p>
+                        <p class="col-centered">
+                            <li>提供百度云，天翼云本身不支持的迅雷等工具直接下载的功能。</li>
+                            <li>采用用户本地存储TOKEN的方式进行授权，充分保证用户的个人隐私</li>
+                            <li>提供图片，音视频等流媒体的直接外链功能，从此站长再也不用费心找图床。</li>
                         </p>
                     </div>
                     <div class="top-big-link">
