@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
 
@@ -31,7 +31,9 @@
 </head>
 
 <body>
-
+<div id='wx_logo' style='margin:0 auto;display:none;'>
+    <img src='{{ URL::asset('asset/images/logo.png') }}' />
+</div>
 <!-- Top menu -->
 <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
     <div class="container">
