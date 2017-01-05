@@ -14,28 +14,42 @@ class BaiduController extends Controller
      */
     public function index()
     {
-            // 授权通过
-            if(isset($_GET['code']) && !empty($_GET['code'])) 
-            {
-                
-            	$result = $this->get_by_curl('https://www.syncy.cn/oauth','method=get_access_token&sign=wp2pcs-sy&code='.$_GET['code']);
+        // 授权通过
+//            if(isset($_GET['code']) && !empty($_GET['code']))
+//            {
+//
+//            	$result = $this->get_by_curl('https://www.syncy.cn/oauth','method=get_access_token&sign=wp2pcs-sy&code='.$_GET['code']);
+//
+//            	$result_array = json_decode($result,true);
+//
+//            	if(!isset($result_array['access_token']) || !$result_array['refresh_token']){
+//            	    echo "授权失败";
+//            		exit;
+//            	}else{
+//                    $access_token = Cookie::forever('access_token', $result_array['access_token']);
+//                    $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
+//                    Cookie::queue($access_token);
+//                    Cookie::queue($refresh_token);
+//            	    return redirect('/home');
+//            	}
+//            }
+        if (isset($_GET['code']) && !empty($_GET['code']))
+        {
+            $result = $this->get_by_curl('https://openapi.baidu.com/oauth/2.0/token', 'grant_type=authorization_code&code=' . $_GET['code'] . '&client_id=' . config('app.BPCSU_KEY') . '&client_secret=' . config('app.BPCSU_SEC') . '&redirect_uri=oob');
 
-            	$result_array = json_decode($result,true);
+            $result_array = json_decode($result, true);
 
-            	if(!isset($result_array['access_token']) || !$result_array['refresh_token']){
-            	    echo "授权失败";
-            		exit;
-            	}else{
-//                    session(["access_token" => $result_array['access_token']]);
-//                    session(["refresh_token" => $result_array['refresh_token']]);
-                    $access_token = Cookie::forever('access_token', $result_array['access_token']);
-                    $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
-                    Cookie::queue($access_token);
-                    Cookie::queue($refresh_token);
-            	    return redirect('/home');
-            	}
+            if (!isset($result_array['access_token']) || !$result_array['refresh_token']) {
+                echo "授权失败";
+                exit;
+            } else {
+                $access_token = Cookie::forever('access_token', $result_array['access_token']);
+                $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
+                Cookie::queue($access_token);
+                Cookie::queue($refresh_token);
+                return redirect('/home');
             }
-            
+        }
     }
 
     /**

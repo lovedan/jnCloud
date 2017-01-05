@@ -71,7 +71,7 @@
     <div class="inner-bg">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 text">
+                <div class="col-sm-7 text">
                     <h1>欢迎使用<strong>江南云</strong> 服务</h1>
                     <div class="description text-left">
                         <p class="col-centered">
@@ -84,11 +84,11 @@
                         </p>
                     </div>
                     <div class="top-big-link">
-                        <a class="btn btn-link-1" href="{{ url('/register') }}">百度授权</a>
+                        <a class="btn btn-link-1" href="{{ url('/register') }}" target="_blank">百度授权</a>
                         <a class="btn btn-link-2" href="#">天翼授权</a>
                     </div>
                 </div>
-                {{--@yield('form')--}}
+                @yield('form')
             </div>
         </div>
     </div>

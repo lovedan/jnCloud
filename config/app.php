@@ -15,7 +15,10 @@ return [
     'name' => '江南云',
     'description' => '江南云-提供基于天翼云盘的云存储服务，包括图片，音乐，视频，文件的云存储下载服务。',
     'useridstart' => 10000,
-    'bapppath' => '/apps/SyncY',
+    'bapppath' => '/apps/bpcs_uploader',
+    'BPCSU_KEY' => 'uFBSHEwWE6DD94SQx9z77vgG',
+    'BPCSU_SEC' => '7w6wdSFsTk6Vv586r1W1ozHLoDGhXogD',
+    'BPCSU_FNAME' => 'bpcs_uploader',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

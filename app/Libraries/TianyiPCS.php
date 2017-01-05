@@ -11,7 +11,7 @@ require_once dirname ( __FILE__ ) . '/' . 'RequestCore.php';
 /**
  * @desc BaiduPCS类
  */
-class BaiduPCS {
+class TianyiPCS {
 
 	/**
 	 * 百度PCS RESTFUL API SERVER调用地址前缀

@@ -42,8 +42,8 @@ class HomeController extends Controller
             return redirect('/');
         }
 
-        // $access_token = "21.8b49c1e977dc65d3dc51d1c7f0f7a0e2.2592000.1482660042.1158157186-2293434";
-        // $refresh_token = "22.f4e84fbd889e17bae881029480f20de4.315360000.1795428042.1158157186-2293434";
+//         $access_token = "24.dbd5f5f55fd81a34e97a2c32450772f5.2592000.1486174125.282335-644561";
+//         $refresh_token = "25.cd161c16cf04b769a731296f0101ebba.315360000.1798942125.282335-644561";
 
         $baidupcs = new BaiduPCS($access_token);
         session(["baidupcs" => $baidupcs]);
@@ -63,6 +63,7 @@ class HomeController extends Controller
         	$orderby = 'time-desc';
         }
         $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path,$limit,$orderby);
+
         $capacity = json_decode($baidupcs->getQuota());
         $userinfos = json_decode($baidupcs->getLoggedInUserInfo());
 
@@ -91,9 +92,9 @@ class HomeController extends Controller
     // 用一个函数来列出PCS中某个目录下的所有文件（夹）
     public function wp_storage_to_pcs_media_list_files($dir_pcs_path,$limit,$orderby = 'time-desc'){
     	global $baidupcs;
-    	$orderby = explode('-', $orderby);
-    	$results = $baidupcs->listFiles($dir_pcs_path,$orderby[0],$orderby[1],$limit);
-    	$results = json_decode($results);
+        $orderby = explode('-', $orderby);
+        $results = $baidupcs->listFiles($dir_pcs_path,$orderby[0],$orderby[1],$limit);
+        $results = json_decode($results);
         if(!empty($results->list)){
             $results = $results->list;
             return $results;
