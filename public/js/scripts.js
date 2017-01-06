@@ -33,6 +33,10 @@ jQuery(document).ready(function() {
     	});
     	
     });
-    
-    
+
+    $("#baidu").click(function(){
+        $('#myModal').modal('show');
+    });
+
+    $('#shouquan').validator();
 });

@@ -84,13 +84,39 @@
                         </p>
                     </div>
                     <div class="top-big-link">
-                        <a class="btn btn-link-1" href="{{ url('/register') }}" target="_blank">百度授权</a>
+                        <a class="btn btn-link-1" id="baidu" href="#" >百度授权</a>
+                        {{--href="{{ url('/register') }}" target="_blank"--}}
                         <a class="btn btn-link-2" href="#">天翼授权</a>
                     </div>
                 </div>
                 @yield('form')
             </div>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            {{--style="display: inline-block; width: auto;"--}}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">获取授权码</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="te">
+                        <iframe border=2 frameborder=0 width=580 height=300 marginheight=0 marginwidth=0 scrolling=no src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob">
+                        </iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
 
 </div>
@@ -101,6 +127,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.backstretch.min.js"></script>
 <script src="js/retina-1.1.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
 <script src="js/scripts.js"></script>
 {{--<script src="js/app.js"></script>--}}
 

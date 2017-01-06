@@ -12,7 +12,16 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $access_token = Cookie::get('access_token');
+    $refresh_token = Cookie::get('refresh_token');
+
+    if(empty($access_token) || empty($refresh_token)){
+//        return redirect('/baidu');
+        return view('welcome');
+    }else{
+        return redirect('/home');
+    }
+
 });
 
 Route::get('/baidu', function() {
