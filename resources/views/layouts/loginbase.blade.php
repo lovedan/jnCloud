@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/form-elements.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     <link rel="stylesheet" href="css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,7 +33,7 @@
 
 <body>
 <div id='wx_logo' style='margin:0 auto;display:none;'>
-    <img src='{{ URL::asset('asset/images/logo.png') }}' />
+    <img src='{{ URL::asset('asset/images/logo.png') }}'/>
 </div>
 <!-- Top menu -->
 <nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
@@ -78,13 +79,13 @@
                             江南云-提供基于百度云，天翼云(正在开发中Y(^_^)Y)的云存储服务，包括图片，音乐，视频，文件的云存储下载服务。
                         </p>
                         <p class="col-centered">
-                            <li>提供百度云，天翼云本身不支持的迅雷等工具直接下载的功能。</li>
-                            <li>采用用户本地存储TOKEN的方式进行授权，充分保证用户的个人隐私</li>
-                            <li>提供图片，音视频等流媒体的直接外链功能，从此站长再也不用费心找图床。</li>
+                        <li>提供百度云，天翼云本身不支持的迅雷等工具直接下载的功能。</li>
+                        <li>采用用户本地存储TOKEN的方式进行授权，充分保证用户的个人隐私</li>
+                        <li>提供图片，音视频等流媒体的直接外链功能，从此站长再也不用费心找图床。</li>
                         </p>
                     </div>
                     <div class="top-big-link">
-                        <a class="btn btn-link-1" id="baidu" href="#" >百度授权</a>
+                        <a class="btn btn-link-1" id="baidu">百度授权</a>
                         {{--href="{{ url('/register') }}" target="_blank"--}}
                         <a class="btn btn-link-2" href="#">天翼授权</a>
                     </div>
@@ -106,11 +107,37 @@
                 </div>
                 <div class="modal-body">
                     <div class="te">
-                        <iframe border=2 frameborder=0 width=580 height=300 marginheight=0 marginwidth=0 scrolling=no src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob">
+                        <iframe border=2 frameborder=0 width=580 height=300 marginheight=0 marginwidth=0 scrolling=no
+                                src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob">
                         </iframe>
                     </div>
                 </div>
                 <div class="modal-footer">
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messages" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            {{--style="display: inline-block; width: auto;"--}}
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title"></h3>
+
+                </div>
+                <div class="modal-body">
+                    <div class="te">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 
                 </div>
             </div>
@@ -127,7 +154,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.backstretch.min.js"></script>
 <script src="js/retina-1.1.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
 <script src="js/scripts.js"></script>
 {{--<script src="js/app.js"></script>--}}
 
