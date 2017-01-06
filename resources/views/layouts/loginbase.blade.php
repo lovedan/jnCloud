@@ -97,7 +97,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="display: inline-block; width: auto;">
             {{--style="display: inline-block; width: auto;"--}}
             <div class="modal-content">
                 <div class="modal-header">
@@ -107,7 +107,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="te">
-                        <iframe border=2 frameborder=0 width=580 height=300 marginheight=0 marginwidth=0 scrolling=no
+                        <iframe border=0 frameborder=0 width=700 height=350 marginheight=0 marginwidth=0 scrolling=yes
                                 src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob">
                         </iframe>
                     </div>
