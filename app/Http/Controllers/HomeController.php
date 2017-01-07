@@ -67,6 +67,11 @@ class HomeController extends Controller
         $capacity = json_decode($baidupcs->getQuota());
         $userinfos = json_decode($baidupcs->getLoggedInUserInfo());
 
+        if (!empty($capacity->error_code) || !empty($userinfos->error_code)){
+            Cookie::queue(Cookie::forget('access_token'));
+            Cookie::queue(Cookie::forget('refresh_token'));
+            return redirect('/?messages=授权失败');
+        }
         //生成用户目录百度用户ID
         $userNewId = $userinfos->userid;
         $userPcsUrl = FILES_DIR.'/'.$userNewId;
