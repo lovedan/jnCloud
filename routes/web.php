@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 
 Route::get('/baidu', function() {
-    return redirect('https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob');
+    return redirect('https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob&scope=basic%20netdisk');
 });
 //Route::get('/baidu', function() {
 //    $backuri = config('app.url')."/auth?";

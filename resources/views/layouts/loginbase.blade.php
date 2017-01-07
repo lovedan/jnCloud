@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/form-elements.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"/>
     <link rel="stylesheet" href="css/style.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -108,7 +109,7 @@
                 <div class="modal-body">
                     <div class="te">
                         <iframe border=0 frameborder=0 width=700 height=350 marginheight=0 marginwidth=0 scrolling=yes
-                                src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob">
+                                src="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=uFBSHEwWE6DD94SQx9z77vgG&redirect_uri=oob&scope=basic%20netdisk">
                         </iframe>
                     </div>
                 </div>
@@ -154,7 +155,8 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.backstretch.min.js"></script>
 <script src="js/retina-1.1.0.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript"
+        src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
 <script src="js/scripts.js"></script>
 {{--<script src="js/app.js"></script>--}}
 
