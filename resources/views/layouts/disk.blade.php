@@ -172,7 +172,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="http://blog.jiangnan.pw/Tools/" target="_blank"><i class="fa fa-circle-o"></i> SQL文转换</a></li>
+                        <li><a href="http://blog.jiangnan.pw/tools/" target="_blank"><i class="fa fa-circle-o"></i> SQL文转换</a></li>
                         <li><a href="#"><i class="fa fa-circle-o"></i> 敬请期待</a></li>
                     </ul>
                 </li>
