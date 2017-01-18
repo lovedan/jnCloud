@@ -93,20 +93,20 @@
                             </li>
                             <!-- end task item -->
                             <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#"></a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#"></a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#"></a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+                            {{--<li class="user-body">--}}
+                                {{--<div class="row">--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#"></a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#"></a>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col-xs-4 text-center">--}}
+                                        {{--<a href="#"></a>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<!-- /.row -->--}}
+                            {{--</li>--}}
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
