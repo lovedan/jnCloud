@@ -34,7 +34,7 @@ class BaiduController extends Controller
 //            	}
 //            }
         if (isset($_GET['code']) && !empty($_GET['code'])) {
-            $result = $this->get_by_curl('https://openapi.baidu.com/oauth/2.0/token', 'grant_type=authorization_code&code=' . $_GET['code'] . '&client_id=' . config('app.BPCSU_KEY') . '&client_secret=' . config('app.BPCSU_SEC') . '&redirect_uri=oob');
+            $result = get_by_curl('https://openapi.baidu.com/oauth/2.0/token', 'grant_type=authorization_code&code=' . $_GET['code'] . '&client_id=' . config('app.BPCSU_KEY') . '&client_secret=' . config('app.BPCSU_SEC') . '&redirect_uri=oob');
 
             $result_array = json_decode($result, true);
 
