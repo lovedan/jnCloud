@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://www.jiangnan.pw'),
+    'url' => env('APP_URL', 'https://www.jiangnan.pw'),
     'fileurl' => 'http://file.jiangnan.pw',
 
     /*
