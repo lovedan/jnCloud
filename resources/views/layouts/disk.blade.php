@@ -62,13 +62,15 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="user-image" alt="User Image">
+                            {{--<img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="user-image" alt="User Image">--}}
+                            <img src="{{ URL::asset('asset/ico/favicon.png') }}" class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ $userinfos->username }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="img-circle" alt="User Image">
+                                {{--<img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="img-circle" alt="User Image">--}}
+                                <img src="{{ URL::asset('asset/ico/favicon.png') }}" class="img-circle" alt="User Image">
 
                                 <p>
                                     昵称：{{ $userinfos->username }}
@@ -143,7 +145,8 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="img-circle" alt="User Image">
+                    {{--<img src="http://tb.himg.baidu.com/sys/portrait/item/{{ $userinfos->portrait }}" class="img-circle" alt="User Image">--}}
+                    <img src="{{ URL::asset('asset/ico/favicon.png') }}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
                     <p>{{ $userinfos->username }}</p>
@@ -173,18 +176,32 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="http://blog.jiangnan.pw/tools/" target="_blank"><i class="fa fa-circle-o"></i> SQL文转换</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> 敬请期待</a></li>
                     </ul>
                 </li>
 
-                <li>
-                    <a href="http://jiangnan.ml" target="_blank">
-                        <i class="fa fa-th"></i> <span>江南品味</span>
+                <li class="treeview">
+                     <a href="#">
+                        <i class="fa fa-th"></i> <span>江南云APP</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="https://cloud.jiangnan.pw" target="_blank"><i class="fa fa-circle-o"></i> 江南云・资源管理</a></li>
+                        <li><a href="http://blog.jiangnan.pw" target="_blank"><i class="fa fa-circle-o"></i> 江南品味博客</a></li>
+                    </ul>
+                </li>
+
+	<!--                 
+	　　<li>
+                    <a href="https://cloud.jiangnan.pw" target="_blank">
+                        <i class="fa fa-th"></i> <span>江南云资源管理</span>
                         <span class="pull-right-container">
                           <small class="label pull-right bg-green">new</small>
                         </span>
                     </a>
-                </li>
+                </li> 
+             -->
             </ul>
         </section>
         <!-- /.sidebar -->
