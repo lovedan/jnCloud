@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use TianyiPCS;
+use BaiduPCS;
 use Auth;
 use Cookie;
 
@@ -27,22 +28,102 @@ class HomeController extends Controller
     public function index()
     {
         // 直接初始化全局变量
-        global $tianyipcs;
-        global $access_token;
-        global $refresh_token;
+        global $baidupcs;
+        global $ty_access_token;
+        global $ty_refresh_token;
 
         //设置项目
         define('FILES_DIR', dirname(dirname(dirname(dirname(__FILE__)))) . '/public/users');    //设置目录，尾部不需要/
 //        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
 
-        $access_token = Cookie::get('access_token');
-        $refresh_token = Cookie::get('refresh_token');
+        $ty_access_token = Cookie::get('access_token');
+        $ty_refresh_token = Cookie::get('refresh_token');
 
-        if (empty($access_token) || empty($refresh_token)) {
+        if (empty($ty_access_token) || empty($ty_refresh_token)) {
             return redirect('/');
         }
 
-        $tianyipcs = new TianyiPCS($access_token,config("app.appid"));
+//        $ty_access_token = "21.f2289aa1bcfd770022f79dfea6ef1132.2592000.1486204941.520904808-644561";
+        $htaccess = json_decode(get_by_curl('https://d.pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=' . $ty_access_token . '&path=' . config('app.bapppath') . '/'));
+
+//         $ty_refresh_token = "25.cd161c16cf04b769a731296f0101ebba.315360000.1798942125.282335-644561";
+
+        $baidupcs = new BaiduPCS($ty_access_token);
+        session(["baidupcs" => $baidupcs]);
+        // 当前路径相关信息
+        $remote_dir = config('app.bapppath');
+
+        if (isset($_GET['dir']) && !empty($_GET['dir'])) {
+            $dir_pcs_path = str_replace('\\', '', $_GET['dir']);
+        } else {
+            $dir_pcs_path = config('app.bapppath');
+        }
+
+        $limit = "0-0";
+        if (isset($_GET['orderby']) && !empty($_GET['orderby'])) {
+            $orderby = $_GET['orderby'];
+        } else {
+            $orderby = 'time-desc';
+        }
+        $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path, $limit, $orderby);
+
+        $capacity = json_decode($baidupcs->getQuota());
+        $userinfos = json_decode($baidupcs->getLoggedInUserInfo());
+
+        if (!empty($capacity->error_code) || !empty($userinfos->error_code)) {
+            Cookie::queue(Cookie::forget('access_token'));
+            Cookie::queue(Cookie::forget('refresh_token'));
+            return redirect('/?messages=授权失败');
+        }
+        //生成用户目录百度用户ID
+        $userNewId = $userinfos->userid;
+        $userPcsUrl = FILES_DIR . '/' . $userNewId;
+
+        if (!file_exists($userPcsUrl)) {
+            mkdir($userPcsUrl);
+        }
+
+        if (!empty($htaccess->error_code)) {
+            $pcsUrl = "Redirect permanent /$userNewId/ https://d.pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=" . $ty_access_token . "&path=" . config('app.bapppath') . "/";
+            file_put_contents($userPcsUrl . '/' . '.htaccess', $pcsUrl);
+        }
+
+        return view('home')->with([
+            "files_on_pcs" => $files_on_pcs,
+            "access_token" => $ty_access_token,
+            "remote_dir" => $remote_dir,
+            "dir_pcs_path" => $dir_pcs_path,
+            "userNewId" => $userNewId,
+            "capacity" => $capacity,
+            "userinfos" => $userinfos,
+            "created_at" => "created_at",
+        ]);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tyindex()
+    {
+        // 直接初始化全局变量
+        global $tianyipcs;
+        global $ty_access_token;
+        global $ty_refresh_token;
+
+        //设置项目
+        define('FILES_DIR', dirname(dirname(dirname(dirname(__FILE__)))) . '/public/users');    //设置目录，尾部不需要/
+//        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
+
+        $ty_access_token = Cookie::get('ty_access_token');
+        $ty_refresh_token = Cookie::get('ty_refresh_token');
+
+        if (empty($ty_access_token) || empty($ty_refresh_token)) {
+            return redirect('/');
+        }
+
+        $tianyipcs = new TianyiPCS($ty_access_token,config("app.appid"));
         session(["tianyipcs" => $tianyipcs]);
 
         $UserInfo = json_decode($tianyipcs->getLoggedInUserInfo());
@@ -83,13 +164,13 @@ class HomeController extends Controller
         }
 
         if (!empty($htaccess->error_code)) {
-            $pcsUrl = "Redirect permanent /$userNewId/ https://d.pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=" . $access_token . "&path=" . config('app.bapppath') . "/";
+            $pcsUrl = "Redirect permanent /$userNewId/ https://d.pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=" . $ty_access_token . "&path=" . config('app.bapppath') . "/";
             file_put_contents($userPcsUrl . '/' . '.htaccess', $pcsUrl);
         }
 
         return view('home')->with([
             "files_on_pcs" => $files_on_pcs,
-            "access_token" => $access_token,
+            "access_token" => $ty_access_token,
             "remote_dir" => $remote_dir,
             "dir_pcs_path" => $dir_pcs_path,
             "userNewId" => $userNewId,
@@ -97,31 +178,6 @@ class HomeController extends Controller
             "userinfos" => $userinfos,
             "created_at" => "created_at",
         ]);
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function tyindex()
-    {
-        // 直接初始化全局变量
-        global $baidupcs;
-        global $access_token;
-        global $refresh_token;
-
-        //设置项目
-        define('FILES_DIR', dirname(dirname(dirname(dirname(__FILE__)))) . '/public/users');    //设置目录，尾部不需要/
-//        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
-
-        $access_token = Cookie::get('access_token');
-        $refresh_token = Cookie::get('refresh_token');
-
-        if (empty($access_token) || empty($refresh_token)) {
-            return redirect('/');
-        }
-        var_dump($access_token."\n".$refresh_token);exit;
     }
     // 用一个函数来列出PCS中某个目录下的所有文件（夹）
     public function wp_storage_to_pcs_media_list_files($dir_pcs_path, $limit, $orderby = 'time-desc')

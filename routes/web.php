@@ -16,7 +16,6 @@ Route::get('/', function () {
     $refresh_token = Cookie::get('refresh_token');
 
     if(empty($access_token) || empty($refresh_token)){
-//        return redirect('/baidu');
         return view('welcome');
     }else{
         return redirect('/home');
@@ -32,14 +31,14 @@ Route::get('/baidu', function() {
 //    return redirect('http://openapi.baidu.com/oauth/2.0/authorize?client_id=dqSQouI90u33xGGUZzMWASZY&response_type=code&redirect_uri=http%3A%2F%2Fwww.syncy.cn%2Foauth%3Fmethod%3Dgranted&scope=basic%20netdisk&confirm_login=1&state=auth_code%23'.urlencode($backuri));
 //});
 
-route::get('/tianyi', function() {
+Route::get('/tianyi', function() {
 //    $backuri = config('app.url')."/tyauth?";
     return redirect('https://oauth.api.189.cn/emp/oauth2/v3/authorize?app_id=972441510000259880&response_type=code&redirect_uri='.
         urlencode(config('app.tyredirect_uri')));
 });
 
-route::get('/bdauth', 'BaiduController@bdAuth');
-route::get('/tyauth', 'BaiduController@tyAuth');
+Route::get('/bdauth', 'BaiduController@bdAuth');
+Route::get('/tyauth', 'BaiduController@tyAuth');
 
 //Auth::routes();
 

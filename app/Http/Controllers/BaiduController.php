@@ -71,10 +71,10 @@ class BaiduController extends Controller
                 echo "授权失败";
                 return redirect('/?messages=授权失败');
             } else {
-                $access_token = Cookie::forever('access_token', $result_array['access_token']);
-                $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
-                Cookie::queue($access_token);
-                Cookie::queue($refresh_token);
+                $ty_access_token = Cookie::forever('ty_access_token', $result_array['access_token']);
+                $ty_refresh_token = Cookie::forever('ty_refresh_token', $result_array['refresh_token']);
+                Cookie::queue($ty_access_token);
+                Cookie::queue($ty_refresh_token);
                 return redirect('/tyhome');
             }
         }
