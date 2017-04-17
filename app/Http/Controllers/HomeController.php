@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use BaiduPCS;
+use TianyiPCS;
 use Auth;
 use Cookie;
 
@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         // 直接初始化全局变量
-        global $baidupcs;
+        global $tianyipcs;
         global $access_token;
         global $refresh_token;
 
@@ -42,13 +42,13 @@ class HomeController extends Controller
             return redirect('/');
         }
 
-//        $access_token = "21.f2289aa1bcfd770022f79dfea6ef1132.2592000.1486204941.520904808-644561";
-        $htaccess = json_decode(get_by_curl('https://d.pcs.baidu.com/rest/2.0/pcs/file?method=download&access_token=' . $access_token . '&path=' . config('app.bapppath') . '/'));
+        $tianyipcs = new TianyiPCS($access_token,config("app.appid"));
+        session(["tianyipcs" => $tianyipcs]);
 
-//         $refresh_token = "25.cd161c16cf04b769a731296f0101ebba.315360000.1798942125.282335-644561";
+        $UserInfo = json_decode($tianyipcs->getLoggedInUserInfo());
+        $fileList=json_decode($tianyipcs->listFiles());
 
-        $baidupcs = new BaiduPCS($access_token);
-        session(["baidupcs" => $baidupcs]);
+        var_dump($fileList);exit;
         // 当前路径相关信息
         $remote_dir = config('app.bapppath');
 
@@ -66,8 +66,8 @@ class HomeController extends Controller
         }
         $files_on_pcs = $this->wp_storage_to_pcs_media_list_files($dir_pcs_path, $limit, $orderby);
 
-        $capacity = json_decode($baidupcs->getQuota());
-        $userinfos = json_decode($baidupcs->getLoggedInUserInfo());
+        $capacity = json_decode($tianyipcs->getQuota());
+        $userinfos = json_decode($tianyipcs->getLoggedInUserInfo());
 
         if (!empty($capacity->error_code) || !empty($userinfos->error_code)) {
             Cookie::queue(Cookie::forget('access_token'));
