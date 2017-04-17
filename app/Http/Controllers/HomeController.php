@@ -99,6 +99,30 @@ class HomeController extends Controller
         ]);
     }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tyindex()
+    {
+        // 直接初始化全局变量
+        global $baidupcs;
+        global $access_token;
+        global $refresh_token;
+
+        //设置项目
+        define('FILES_DIR', dirname(dirname(dirname(dirname(__FILE__)))) . '/public/users');    //设置目录，尾部不需要/
+//        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
+
+        $access_token = Cookie::get('access_token');
+        $refresh_token = Cookie::get('refresh_token');
+
+        if (empty($access_token) || empty($refresh_token)) {
+            return redirect('/');
+        }
+        var_dump($access_token."\n".$refresh_token);exit;
+    }
     // 用一个函数来列出PCS中某个目录下的所有文件（夹）
     public function wp_storage_to_pcs_media_list_files($dir_pcs_path, $limit, $orderby = 'time-desc')
     {

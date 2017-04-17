@@ -12,7 +12,7 @@ class BaiduController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function bdAuth()
     {
         // 授权通过
 //            if(isset($_GET['code']) && !empty($_GET['code']))
@@ -47,6 +47,35 @@ class BaiduController extends Controller
                 Cookie::queue($access_token);
                 Cookie::queue($refresh_token);
                 return redirect('/home');
+            }
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tyAuth()
+    {
+        if (isset($_GET['code']) && !empty($_GET['code'])) {
+            $result = get_by_curl('https://oauth.api.189.cn/emp/oauth2/v3/access_token',
+                'grant_type=authorization_code&code=' . $_GET['code'] .
+                '&app_id=' . config('app.appid') .
+                '&app_secret=' . config('app.appsecret') .
+                '&redirect_uri='. config('app.tyredirect_uri'));
+
+            $result_array = json_decode($result, true);
+
+            if (!isset($result_array['access_token']) || !$result_array['refresh_token']) {
+                echo "授权失败";
+                return redirect('/?messages=授权失败');
+            } else {
+                $access_token = Cookie::forever('access_token', $result_array['access_token']);
+                $refresh_token = Cookie::forever('refresh_token', $result_array['refresh_token']);
+                Cookie::queue($access_token);
+                Cookie::queue($refresh_token);
+                return redirect('/tyhome');
             }
         }
     }

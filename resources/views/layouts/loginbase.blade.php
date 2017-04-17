@@ -88,7 +88,7 @@
                     <div class="top-big-link">
                         <a class="btn btn-link-1" id="baidu">百度授权</a>
                         {{--href="{{ url('/register') }}" target="_blank"--}}
-                        <a class="btn btn-link-2" href="#">天翼授权</a>
+                        <a class="btn btn-link-1" id="tianyi" href="/tianyi">天翼授权</a>
                     </div>
                 </div>
                 @yield('form')

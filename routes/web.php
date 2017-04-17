@@ -32,16 +32,19 @@ Route::get('/baidu', function() {
 //    return redirect('http://openapi.baidu.com/oauth/2.0/authorize?client_id=dqSQouI90u33xGGUZzMWASZY&response_type=code&redirect_uri=http%3A%2F%2Fwww.syncy.cn%2Foauth%3Fmethod%3Dgranted&scope=basic%20netdisk&confirm_login=1&state=auth_code%23'.urlencode($backuri));
 //});
 
-Route::get('/tianyi', function() {
-    $backuri = config('app.url')."/auth?";
-    return redirect('https://oauth.api.189.cn/emp/oauth2/v3/authorize?app_id=    &response_type=code&redirect_uri='.urlencode($backuri));
+route::get('/tianyi', function() {
+//    $backuri = config('app.url')."/tyauth?";
+    return redirect('https://oauth.api.189.cn/emp/oauth2/v3/authorize?app_id=972441510000259880&response_type=code&redirect_uri='.
+        urlencode(config('app.tyredirect_uri')));
 });
 
-Route::get('/auth', 'BaiduController@index');
+route::get('/bdauth', 'BaiduController@bdAuth');
+route::get('/tyauth', 'BaiduController@tyAuth');
 
 //Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/tyhome', 'HomeController@tyindex');
 
 Route::pattern('path', '[\s\S]*');
 

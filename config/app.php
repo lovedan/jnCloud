@@ -19,6 +19,9 @@ return [
     'BPCSU_KEY' => 'uFBSHEwWE6DD94SQx9z77vgG',
     'BPCSU_SEC' => '7w6wdSFsTk6Vv586r1W1ozHLoDGhXogD',
     'BPCSU_FNAME' => 'bpcs_uploader',
+    'appid' => '972441510000259880',
+    'appsecret' => 'e559cb5b773d877bd14ac1ef94eae082',
+    'tyredirect_uri' => 'http://jncloud.com/tyauth',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

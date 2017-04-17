@@ -13,7 +13,7 @@
         </div>
         <div class="form-bottom">
             <form id="shouquan" class="registration-form" data-toggle="validator" role="form" method="GET"
-                  action="{{ url('/auth') }}">
+                  action="{{ url('/bdauth') }}">
 
                 {{--<div class="form-group form-group">--}}
                 {{--<label for="username" class="sr-only control-label">授权码</label>--}}
