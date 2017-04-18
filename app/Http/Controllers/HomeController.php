@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use TianyiPCS;
 use BaiduPCS;
-use Auth;
 use Cookie;
+use TianyiPCS;
 
 class HomeController extends Controller
 {
@@ -112,10 +110,6 @@ class HomeController extends Controller
         global $ty_access_token;
         global $ty_refresh_token;
 
-        //设置项目
-        define('FILES_DIR', dirname(dirname(dirname(dirname(__FILE__)))) . '/public/users');    //设置目录，尾部不需要/
-//        define('CONFIG_DIR',FILES_DIR.'/config');	//配置目录
-
         $ty_access_token = Cookie::get('ty_access_token');
         $ty_refresh_token = Cookie::get('ty_refresh_token');
 
@@ -168,7 +162,7 @@ class HomeController extends Controller
             file_put_contents($userPcsUrl . '/' . '.htaccess', $pcsUrl);
         }
 
-        return view('home')->with([
+        return view('tyhome')->with([
             "files_on_pcs" => $files_on_pcs,
             "access_token" => $ty_access_token,
             "remote_dir" => $remote_dir,

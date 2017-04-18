@@ -124,12 +124,17 @@ class TianyiPCS
     }
 
     /**
-     * 获取当前登录用户的用户uid、用户名和头像。
+     * 获取文件信息
+     * fileId    false    string    文件ID,通过调用获取文件列表接口获得
+     * filePath    false    string    文件路径，以 / 分隔
+     * mediaAttr    false    number    文件媒体属性选项 0或空：不获取 1：获取
+     * iconOption    false    number    获取文件缩略图选项 0或空-不获取缩略图 1：获取小尺寸缩略图(80max) 2：获取中尺寸缩略图(160max)
+     * 4：获取大尺寸缩略图(320max) 8 ：600max缩略图 各种尺寸缩略图选项可
      * @return string
      */
-    public function getLoggedInUser()
+    public function getFileInfo($fileId, $filePath, $mediaAttr, $iconOption)
     {
-        $result = $this->_preControl('openapi', 'getUserInfo.action?' . 'access_token=' . $this->_accessToken, array());
+        $result = $this->_preControl('pcs', 'getFileInfo.action?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId, array());
         return $result;
     }
 
