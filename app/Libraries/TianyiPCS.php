@@ -20,7 +20,8 @@ class TianyiPCS
      */
     private $_pcs_uri_prefixs = array(
         'pcs' => 'http://api.189.cn/ChinaTelecom/',
-        'openapi' => 'https://oauth.api.189.cn/emp/oauth2/v3/authorize'
+        'openapi' => 'https://oauth.api.189.cn/emp/oauth2/v3/authorize',
+        'user' => 'http://api.189.cn/upc/vitual_identity/user_network_info'
     );
 
     private $_accessToken = '';
@@ -132,9 +133,31 @@ class TianyiPCS
      * 4：获取大尺寸缩略图(320max) 8 ：600max缩略图 各种尺寸缩略图选项可
      * @return string
      */
-    public function getFileInfo($fileId, $filePath, $mediaAttr, $iconOption)
+    public function getFileInfo($fileId="", $filePath="", $mediaAttr=1, $iconOption=1)
     {
-        $result = $this->_preControl('pcs', 'getFileInfo.action?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId, array());
+        $result = $this->_preControl('pcs', 'getFileInfo.action?' .
+            'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId .
+            'fileId=' . $fileId .
+            'filePath=' . $filePath .
+            'mediaAttr=' . $mediaAttr .
+            'iconOption=' . $iconOption
+            , array());
+        return $result;
+    }
+
+    /**
+     * 获取文件信息
+     * folderId	false	string	文件夹ID,通过调用获取文件列表接口获得
+     * folderPath	false	string	文件夹路径，以 / 分隔
+     * @return string
+     */
+    public function getFolderInfo($folderId="", $folderPath="")
+    {
+        $result = $this->_preControl('pcs', 'getFolderInfo.action?' .
+            'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId .
+            '&folderId=' . $folderId .
+            '&folderPath=' . $folderPath
+            , array());
         return $result;
     }
 
@@ -144,7 +167,7 @@ class TianyiPCS
      */
     public function getLoggedInUserInfo()
     {
-        $result = $this->_preControl('pcs', 'getUserInfo.action?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId, array());
+        $result = $this->_preControl('user', '?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId . '&type=json', array());
         return $result;
     }
 
@@ -154,7 +177,7 @@ class TianyiPCS
      */
     public function getQuota()
     {
-        $result = $this->_baseControl('quota?method=info' . '&access_token=' . $this->_accessToken, array());
+        $result = $this->_preControl('pcs', 'getUserInfo.action?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId, array());
         return $result;
     }
 
@@ -267,7 +290,7 @@ class TianyiPCS
      * @param string $pageSize 获得结果集的分页大小
      * @return string
      */
-    public function listFiles($folderId = '', $fileType = 0, $mediaType = 0, $mediaAttr = 0, $iconOption = 0, $orderBy = 'filename',
+    public function listFiles($folderId = '', $fileType = 0, $mediaType = 0, $mediaAttr = 0, $iconOption = 1, $orderBy = 'filename',
                               $descending = false, $pageNum = 1, $pageSize = 20)
     {
         $result = $this->_baseControl('listFiles.action?' . 'app_id=' . $this->_appId .

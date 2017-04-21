@@ -11,17 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-//    $access_token = Cookie::get('access_token');
-//    $refresh_token = Cookie::get('refresh_token');
-//    if(empty($access_token) || empty($refresh_token)){
-//        return view('welcome');
-//    }else{
-//        return redirect('/home');
-//    }
-//});
 Route::get('/', function () {
-    return view('welcome');
+    $access_token = Cookie::get('access_token');
+    $refresh_token = Cookie::get('refresh_token');
+    $ty_access_token = Cookie::get('ty_access_token');
+    $ty_refresh_token = Cookie::get('ty_refresh_token');
+    if((empty($access_token) || empty($refresh_token)) && (empty($ty_access_token) || empty($ty_refresh_token))){
+        return view('welcome');
+    }
+    if(!empty($access_token) && !empty($refresh_token)){
+        return redirect('/home');
+    }
+    if(!empty($ty_access_token) && !empty($ty_refresh_token)){
+        return redirect('/tyhome');
+    }
 });
 
 Route::get('/baidu', function () {
