@@ -21,7 +21,7 @@ return [
     'BPCSU_FNAME' => 'bpcs_uploader',
     'appid' => '972441510000259880',
     'appsecret' => 'e559cb5b773d877bd14ac1ef94eae082',
-    'tyredirect_uri' => 'http://jncloud.com/tyauth',
+    'tyredirect_uri' => 'https://cloud.jiangnan.pw/tyauth',
     /*
     |--------------------------------------------------------------------------
     | Application Environment

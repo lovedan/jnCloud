@@ -25,6 +25,8 @@ class RegController extends Controller
 
         Cookie::queue(Cookie::forget('access_token'));
         Cookie::queue(Cookie::forget('refresh_token'));
+        Cookie::queue(Cookie::forget('ty_access_token'));
+        Cookie::queue(Cookie::forget('ty_refresh_token'));
 
         return redirect('/');
     }
