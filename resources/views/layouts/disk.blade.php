@@ -187,7 +187,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="https://cloud.jiangnan.pw" target="_blank"><i class="fa fa-circle-o"></i> 江南云・资源管理</a></li>
+                        <li><a href="https://mini.jiangnan.pw" target="_blank"><i class="fa fa-circle-o"></i> 江南云・资源管理</a></li>
                         <li><a href="http://blog.jiangnan.pw" target="_blank"><i class="fa fa-circle-o"></i> 江南品味博客</a></li>
                     </ul>
                 </li>

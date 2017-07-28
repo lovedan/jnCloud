@@ -112,7 +112,8 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="http://pan.baidu.com/disk/home#list/path={{ urldecode(config('app.bapppath')) }}&vmode=list" target="_blank" class="btn btn-default btn-flat">管理空间</a>
+                                    {{--<a href="http://pan.baidu.com/disk/home#list/path={{ urldecode(config('app.bapppath')) }}&vmode=list" target="_blank" class="btn btn-default btn-flat">管理空间</a>--}}
+                                    <a href="http://cloud.189.cn/main.action#home/folder/-16" target="_blank" class="btn btn-default btn-flat">管理空间</a>
                                 </div>
                                 <div class="pull-right">
                                     <!--<a href="#" class="btn btn-default btn-flat">Sign out</a>-->

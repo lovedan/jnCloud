@@ -37,6 +37,8 @@ if(!empty($files_on_pcs))
         echo '</td>';
         echo '</tr>';
     }
+    global $tianyipcs;
+
     foreach ($files_on_pcs->file as $file){
         echo '<tr style="font-size: 10px;">';
         echo '<td width="2%" style="line-height:4">';
@@ -51,6 +53,7 @@ if(!empty($files_on_pcs))
         echo "&nbsp;&nbsp;".$file->name;
         echo '</td>';
         echo '<td width="30%" style="vertical-align:middle">';
+	    echo '<input style="font-size: 10px;" type="text" class="form-control " value="'.$tianyipcs->getFileDownloadUrl($file->id)->fileDownloadUrl.'">';
         echo '</td>';
         echo '<td width="10%" style="line-height:4">';
         echo number_format($file->size/1024, 2, '.', '')."KB";

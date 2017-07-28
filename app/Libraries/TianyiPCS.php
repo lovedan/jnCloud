@@ -181,6 +181,24 @@ class TianyiPCS
         return $result;
     }
 
+	/**
+	 * 参数名	必须	类型及范围	说明
+	 * app_id	true	string	应用ID，创建应用时，由天翼开放平台分配
+	 * access_token	true	string	访问令牌，即通过调用令牌接口获取的访问能力接口的通行证
+	 * fileId	true	string	文件Id,通过调用获取文件列表接口获得
+	 * short	false	string	是否获取短地址， true：获取短地址格式下载URL 为空或false：获取原始下载URL
+	 *
+	 * 参数名	类型及范围	说明
+	 * fileDownloadUrl	string	文件下载地址
+	 * res_code	string	系统返回码
+	 * res_message	string	系统返回描述
+	 */
+	public function getFileDownloadUrl($fileId="",$short="true")
+	{
+		$result = $this->_preControl('pcs', 'getFileDownloadUrl.action?' . 'access_token=' . $this->_accessToken . '&app_id=' . $this->_appId . '&fileId=' . $fileId . '&short=' . $short, array());
+		return json_decode($result);
+	}
+
     /**
      * 上传文件
      * 注意：此方法适用于上传不大于2G的单个文件。

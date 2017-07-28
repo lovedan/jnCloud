@@ -151,6 +151,7 @@ class HomeController extends Controller
             return redirect('/?messages=授权失败');
         }
         $userinfos = json_decode($tianyipcs->getLoggedInUserInfo());
+        if (empty($userinfos->user_nickname)) $userinfos->user_nickname = "江南云用户";
         $capacity = json_decode($tianyipcs->getQuota());
 
         return view('tyhome')->with([

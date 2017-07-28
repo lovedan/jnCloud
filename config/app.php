@@ -60,7 +60,7 @@ return [
     */
 
     'url' => env('APP_URL', 'https://www.jiangnan.pw'),
-    'fileurl' => 'http://file.jiangnan.pw',
+    'fileurl' => 'http://cloudfile.jiangnan.pw',
 
     /*
     |--------------------------------------------------------------------------
