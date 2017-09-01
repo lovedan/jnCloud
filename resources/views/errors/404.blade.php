@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Be right back.</title>
+        <title>404 | 江南品味</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
@@ -32,7 +32,7 @@
             }
 
             .title {
-                font-size: 72px;
+                font-size: 180px;
                 margin-bottom: 40px;
             }
         </style>
@@ -45,4 +45,4 @@
         </div>
     </body>
 </html>
-<script type="text/javascript" src="http://www.qq.com/404/search_children.js" charset="utf-8" homePageUrl="https://jiangnan.pw" homePageName="返回首页"></script>
+<script type="text/javascript" src="//qzonestyle.gtimg.cn/qzone/hybrid/app/404/search_children.js" charset="utf-8" homePageUrl="https://www.jiangnan.pw" homePageName="返回江南品味"></script>
